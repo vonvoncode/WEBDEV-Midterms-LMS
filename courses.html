@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#7056ff" />
+    <title>Courses · AscendOne</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <a href="dashboard.html" class="brand" aria-label="AscendOne home">
+          <span class="brand-symbol">
+            <i class="icon" data-lucide="book-open"></i>
+          </span>
+          AscendOne
+        </a>
+        <p class="tagline">reach the top as one</p>
+
+        <p class="nav-label">Student workspace</p>
+        <nav>
+          <a href="dashboard.html">
+            <i class="icon" data-lucide="layout-dashboard"></i>
+            Dashboard
+          </a>
+          <a href="courses.html" class="active">
+            <i class="icon" data-lucide="book-open"></i>
+            My Courses
+          </a>
+          <a href="assessments.html">
+            <i class="icon" data-lucide="file-text"></i>
+            Assessments
+          </a>
+          <a href="grades.html">
+            <i class="icon" data-lucide="graduation-cap"></i>
+            Grades
+          </a>
+          <a href="announcements.html">
+            <i class="icon" data-lucide="megaphone"></i>
+            Announcements
+          </a>
+          <a href="notifications.html">
+            <i class="icon" data-lucide="bell"></i>
+            Notifications
+          </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <a href="settings.html" class="settings-link">
+            <i class="icon" data-lucide="settings"></i>
+            Settings
+          </a>
+
+          <div class="user-card">
+            <span class="avatar">VQ</span>
+            <div>
+              <strong>Von Quobie Ferrer</strong>
+              <small>Student Account</small>
+            </div>
+          </div>
+
+          <button class="logout" id="logout">
+            <i class="icon" data-lucide="log-out"></i>
+            Log out
+          </button>
+        </div>
+      </aside>
+
+      <button id="nav-overlay" aria-label="Close menu"></button>
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-title">
+          <button
+            class="icon-button mobile-menu"
+            aria-label="Open menu"
+            aria-controls="sidebar"
+          >
+            <i class="icon" data-lucide="menu"></i>
+          </button>
+          <div>
+            <h1>My Courses</h1>
+            <p>First semester · 2026</p>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <span class="role-chip">Student</span>
+          <button
+            class="icon-button"
+            id="theme-toggle"
+            aria-label="Toggle dark mode"
+          >
+            <i class="icon" data-lucide="moon"></i>
+          </button>
+          <button
+            class="icon-button notification-button"
+            aria-label="Notifications"
+          >
+            <i class="icon" data-lucide="bell"></i>
+            <span class="notification-count">3</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main class="main-content">
+        <p class="eyebrow">Your learning space</p>
+        <div class="page-intro">
+          <div>
+            <h2>My courses</h2>
+            <p>A place to learn, create, and move forward together.</p>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="search">
+            <i class="icon" data-lucide="search"></i>
+            <input
+              type="search"
+              id="course-search"
+              placeholder="Search your courses"
+            />
+          </div>
+        </div>
+
+        <p id="result-count">6 courses</p>
+
+        <div class="course-grid" id="course-list">
+          <a href="course-detail.html?id=IT315" class="course-card">
+            <div class="course-cover purple">
+              <span>IT 315</span>
+              <i class="icon" data-lucide="book-open"></i>
+            </div>
+            <div class="course-body">
+              <h3>Interface Design Systems</h3>
+              <small>Nimrod Reyes Sajise</small>
+              <p>50% of assignments submitted</p>
+              <div class="progress"><span style="width: 50%"></span></div>
+            </div>
+          </a>
+
+          <a href="course-detail.html?id=CS241" class="course-card">
+            <div class="course-cover blue">
+              <span>CS 241</span>
+              <i class="icon" data-lucide="book-open"></i>
+            </div>
+            <div class="course-body">
+              <h3>Data Structures &amp; Algorithms</h3>
+              <small>Nimrod Reyes Sajise</small>
+              <p>100% of assignments submitted</p>
+              <div class="progress"><span style="width: 100%"></span></div>
+            </div>
+          </a>
+
+          <a href="course-detail.html?id=IT332" class="course-card">
+            <div class="course-cover orange">
+              <span>IT 332</span>
+              <i class="icon" data-lucide="book-open"></i>
+            </div>
+            <div class="course-body">
+              <h3>Computer Networks</h3>
+              <small>Nimrod Reyes Sajise</small>
+              <p>0% of assignments submitted</p>
+              <div class="progress"><span style="width: 0%"></span></div>
+            </div>
+          </a>
+
+          <a href="course-detail.html?id=GE201" class="course-card">
+            <div class="course-cover pink">
+              <span>GE 201</span>
+              <i class="icon" data-lucide="book-open"></i>
+            </div>
+            <div class="course-body">
+              <h3>Research Methods</h3>
+              <small>Nimrod Reyes Sajise</small>
+              <p>0% of assignments submitted</p>
+              <div class="progress"><span style="width: 0%"></span></div>
+            </div>
+          </a>
+
+          <a href="course-detail.html?id=IT320" class="course-card">
+            <div class="course-cover teal">
+              <span>IT 320</span>
+              <i class="icon" data-lucide="book-open"></i>
+            </div>
+            <div class="course-body">
+              <h3>Web Development</h3>
+              <small>Nimrod Reyes Sajise</small>
+              <p>0% of assignments submitted</p>
+              <div class="progress"><span style="width: 0%"></span></div>
+            </div>
+          </a>
+
+          <a href="course-detail.html?id=IT324" class="course-card">
+            <div class="course-cover indigo">
+              <span>IT 324</span>
+              <i class="icon" data-lucide="book-open"></i>
+            </div>
+            <div class="course-body">
+              <h3>Database Management Systems</h3>
+              <small>Nimrod Reyes Sajise</small>
+              <p>0% of assignments submitted</p>
+              <div class="progress"><span style="width: 0%"></span></div>
+            </div>
+          </a>
+
+          <!-- Empty state -->
+          <div class="empty" id="no-results" hidden>
+            <i class="icon" data-lucide="search-x"></i>
+            <h3>No courses found</h3>
+            <p>Try a different search term.</p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div id="toast" role="status"></div>
+
+    <script src="assets/js/script.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

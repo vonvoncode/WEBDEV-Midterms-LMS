@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#7056ff" />
+    <title>Dashboard · AscendOne</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <a href="dashboard.html" class="brand" aria-label="AscendOne home">
+          <span class="brand-symbol">
+            <i class="icon" data-lucide="book-open"></i>
+          </span>
+          AscendOne
+        </a>
+        <p class="tagline">reach the top as one</p>
+
+        <p class="nav-label">Student workspace</p>
+        <nav>
+          <a href="dashboard.html" class="active">
+            <i class="icon" data-lucide="layout-dashboard"></i>
+            Dashboard
+          </a>
+          <a href="courses.html">
+            <i class="icon" data-lucide="book-open"></i>
+            My Courses
+          </a>
+          <a href="assessments.html">
+            <i class="icon" data-lucide="file-text"></i>
+            Assessments
+          </a>
+          <a href="grades.html">
+            <i class="icon" data-lucide="graduation-cap"></i>
+            Grades
+          </a>
+          <a href="announcements.html">
+            <i class="icon" data-lucide="megaphone"></i>
+            Announcements
+          </a>
+          <a href="notifications.html">
+            <i class="icon" data-lucide="bell"></i>
+            Notifications
+          </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <a href="settings.html" class="settings-link">
+            <i class="icon" data-lucide="settings"></i>
+            Settings
+          </a>
+
+          <div class="user-card">
+            <span class="avatar">VQ</span>
+            <div>
+              <strong>Von Quobie Ferrer</strong>
+              <small>Student Account</small>
+            </div>
+          </div>
+
+          <button class="logout" id="logout">
+            <i class="icon" data-lucide="log-out"></i>
+            Log out
+          </button>
+        </div>
+      </aside>
+
+      <button id="nav-overlay" aria-label="Close menu"></button>
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-title">
+          <button
+            class="icon-button mobile-menu"
+            aria-label="Open menu"
+            aria-controls="sidebar"
+          >
+            <i class="icon" data-lucide="menu"></i>
+          </button>
+          <div>
+            <h1>Dashboard</h1>
+            <p>First semester · 2026</p>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <span class="role-chip">Student</span>
+          <button
+            class="icon-button"
+            id="theme-toggle"
+            aria-label="Toggle dark mode"
+          >
+            <i class="icon" data-lucide="moon"></i>
+          </button>
+          <button
+            class="icon-button notification-button"
+            aria-label="Notifications"
+          >
+            <i class="icon" data-lucide="bell"></i>
+            <span class="notification-count">3</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main class="main-content">
+        <div class="page-intro">
+          <div>
+            <p class="eyebrow">Saturday, September 26</p>
+            <h2>Good morning, Von.</h2>
+            <p>Here's what needs your attention today.</p>
+          </div>
+          <a href="courses.html" class="button primary">
+            <i class="icon" data-lucide="book-open"></i>
+            Browse courses
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat lavender">
+            <span class="stat-icon">
+              <i class="icon" data-lucide="clock"></i>
+            </span>
+            <div>
+              <strong>3</strong>
+              <span>Tasks due this week</span>
+            </div>
+          </div>
+
+          <div class="stat sky">
+            <span class="stat-icon">
+              <i class="icon" data-lucide="book-open"></i>
+            </span>
+            <div>
+              <strong>6</strong>
+              <span>Enrolled courses</span>
+            </div>
+          </div>
+
+          <div class="stat peach">
+            <span class="stat-icon">
+              <i class="icon" data-lucide="graduation-cap"></i>
+            </span>
+            <div>
+              <strong>3.13</strong>
+              <span>Provisional GPA</span>
+            </div>
+          </div>
+
+          <div class="stat mint">
+            <span class="stat-icon">
+              <i class="icon" data-lucide="check-check"></i>
+            </span>
+            <div>
+              <strong>2</strong>
+              <span>Assignments submitted</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- To-do + Upcoming -->
+        <div class="dashboard-grid">
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <h2>To-do</h2>
+                <p>One step closer to your goals.</p>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Assignment</th>
+                    <th>Course</th>
+                    <th>Due</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <span class="table-link">Usability testing report</span>
+                      <small>100 points</small>
+                    </td>
+                    <td>Interface Design Systems</td>
+                    <td>Sep 27, 2026, 11:00 PM</td>
+                    <td><span class="badge soft">Open</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="table-link">Network simulation lab</span>
+                      <small>100 points</small>
+                    </td>
+                    <td>Computer Networks</td>
+                    <td>Sep 29, 2026, 11:00 PM</td>
+                    <td><span class="badge soft">Open</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="table-link">Research proposal</span>
+                      <small>100 points</small>
+                    </td>
+                    <td>Research Methods</td>
+                    <td>Oct 1, 2026, 11:00 PM</td>
+                    <td><span class="badge soft">Open</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="table-link">Responsive portfolio</span>
+                      <small>100 points</small>
+                    </td>
+                    <td>Web Development</td>
+                    <td>Oct 3, 2026, 11:00 PM</td>
+                    <td><span class="badge soft">Open</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <h2>Upcoming</h2>
+                <p>Your next deadlines</p>
+              </div>
+              <i class="icon" data-lucide="clock"></i>
+            </div>
+            <div class="schedule-list">
+              <a href="#">
+                <time><b>27</b><span>Sep</span></time>
+                <div>
+                  <strong>Usability testing report</strong>
+                  <small>Sep 27, 2026, 11:00 PM</small>
+                </div>
+              </a>
+              <a href="#">
+                <time><b>29</b><span>Sep</span></time>
+                <div>
+                  <strong>Network simulation lab</strong>
+                  <small>Sep 29, 2026, 11:00 PM</small>
+                </div>
+              </a>
+              <a href="#">
+                <time><b>1</b><span>Oct</span></time>
+                <div>
+                  <strong>Research proposal</strong>
+                  <small>Oct 1, 2026, 11:00 PM</small>
+                </div>
+              </a>
+            </div>
+          </section>
+        </div>
+
+        <!-- My courses -->
+        <div class="section-space">
+          <div class="section-heading">
+            <div>
+              <h2>My courses</h2>
+              <p>Pick up where you left off.</p>
+            </div>
+            <a href="courses.html" class="text-button">
+              See all
+              <i class="icon" data-lucide="chevron-right"></i>
+            </a>
+          </div>
+
+          <div class="course-grid">
+            <a href="course-detail.html?id=IT315" class="course-card">
+              <div class="course-cover purple">
+                <span>IT 315</span>
+                <i class="icon" data-lucide="book-open"></i>
+              </div>
+              <div class="course-body">
+                <h3>Interface Design Systems</h3>
+                <small>Nimrod Reyes Sajise</small>
+                <p>50% of assignments submitted</p>
+                <div class="progress"><span style="width: 50%"></span></div>
+              </div>
+            </a>
+
+            <a href="course-detail.html?id=CS241" class="course-card">
+              <div class="course-cover blue">
+                <span>CS 241</span>
+                <i class="icon" data-lucide="book-open"></i>
+              </div>
+              <div class="course-body">
+                <h3>Data Structures &amp; Algorithms</h3>
+                <small>Nimrod Reyes Sajise</small>
+                <p>100% of assignments submitted</p>
+                <div class="progress"><span style="width: 100%"></span></div>
+              </div>
+            </a>
+
+            <a href="course-detail.html?id=IT332" class="course-card">
+              <div class="course-cover orange">
+                <span>IT 332</span>
+                <i class="icon" data-lucide="book-open"></i>
+              </div>
+              <div class="course-body">
+                <h3>Computer Networks</h3>
+                <small>Nimrod Reyes Sajise</small>
+                <p>0% of assignments submitted</p>
+                <div class="progress"><span style="width: 0%"></span></div>
+              </div>
+            </a>
+
+            <a href="course-detail.html?id=GE201" class="course-card">
+              <div class="course-cover pink">
+                <span>GE 201</span>
+                <i class="icon" data-lucide="book-open"></i>
+              </div>
+              <div class="course-body">
+                <h3>Research Methods</h3>
+                <small>Nimrod Reyes Sajise</small>
+                <p>0% of assignments submitted</p>
+                <div class="progress"><span style="width: 0%"></span></div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Announcements -->
+        <div class="section-space">
+          <div class="section-heading">
+            <div>
+              <h2>From your learning community</h2>
+              <p>Recent announcements</p>
+            </div>
+            <a href="announcements.html" class="text-button">See all</a>
+          </div>
+
+          <section class="panel">
+            <div class="announcement-preview">
+              <i class="icon" data-lucide="megaphone"></i>
+              <div>
+                <small>Interface Design Systems</small>
+                <h3>Welcome to our design studio</h3>
+                <p>
+                  Bring your prototype to our next session. We will practice
+                  giving constructive feedback.
+                </p>
+              </div>
+            </div>
+            <div class="announcement-preview">
+              <i class="icon" data-lucide="megaphone"></i>
+              <div>
+                <small>Computer Networks</small>
+                <h3>Network lab reminder</h3>
+                <p>
+                  Check your subnet calculations before submitting your
+                  simulation lab.
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <div id="toast" role="status"></div>
+
+    <script src="assets/js/script.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

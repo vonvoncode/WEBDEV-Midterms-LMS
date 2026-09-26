@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#7056ff" />
+    <title>Assessments · AscendOne</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <a href="dashboard.html" class="brand" aria-label="AscendOne home">
+          <span class="brand-symbol">
+            <i class="icon" data-lucide="book-open"></i>
+          </span>
+          AscendOne
+        </a>
+        <p class="tagline">reach the top as one</p>
+
+        <p class="nav-label">Student workspace</p>
+        <nav>
+          <a href="dashboard.html">
+            <i class="icon" data-lucide="layout-dashboard"></i>
+            Dashboard
+          </a>
+          <a href="courses.html">
+            <i class="icon" data-lucide="book-open"></i>
+            My Courses
+          </a>
+          <a href="assessments.html" class="active">
+            <i class="icon" data-lucide="file-text"></i>
+            Assessments
+          </a>
+          <a href="grades.html">
+            <i class="icon" data-lucide="graduation-cap"></i>
+            Grades
+          </a>
+          <a href="announcements.html">
+            <i class="icon" data-lucide="megaphone"></i>
+            Announcements
+          </a>
+          <a href="notifications.html">
+            <i class="icon" data-lucide="bell"></i>
+            Notifications
+          </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <a href="settings.html" class="settings-link">
+            <i class="icon" data-lucide="settings"></i>
+            Settings
+          </a>
+
+          <div class="user-card">
+            <span class="avatar">VQ</span>
+            <div>
+              <strong>Von Quobie Ferrer</strong>
+              <small>Student Account</small>
+            </div>
+          </div>
+
+          <button class="logout" id="logout">
+            <i class="icon" data-lucide="log-out"></i>
+            Log out
+          </button>
+        </div>
+      </aside>
+
+      <button id="nav-overlay" aria-label="Close menu"></button>
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-title">
+          <button
+            class="icon-button mobile-menu"
+            aria-label="Open menu"
+            aria-controls="sidebar"
+          >
+            <i class="icon" data-lucide="menu"></i>
+          </button>
+          <div>
+            <h1>Assessments</h1>
+            <p>First semester · 2026</p>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <span class="role-chip">Student</span>
+          <button
+            class="icon-button"
+            id="theme-toggle"
+            aria-label="Toggle dark mode"
+          >
+            <i class="icon" data-lucide="moon"></i>
+          </button>
+          <button
+            class="icon-button notification-button"
+            aria-label="Notifications"
+          >
+            <i class="icon" data-lucide="bell"></i>
+            <span class="notification-count">3</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main class="main-content">
+        <p class="eyebrow">Stay on track</p>
+        <div class="page-intro">
+          <div>
+            <h2>Assessments</h2>
+            <p>Your assignments, deadlines, and submission status.</p>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="search">
+            <i class="icon" data-lucide="search"></i>
+            <input
+              type="search"
+              id="assignment-search"
+              placeholder="Search assignments"
+            />
+          </div>
+
+          <div class="filter">
+            <select id="course-filter">
+              <option value="all">All courses</option>
+              <option value="IT315">Interface Design Systems</option>
+              <option value="CS241">Data Structures &amp; Algorithms</option>
+              <option value="IT332">Computer Networks</option>
+              <option value="GE201">Research Methods</option>
+              <option value="IT320">Web Development</option>
+              <option value="IT324">Database Management Systems</option>
+            </select>
+          </div>
+        </div>
+
+        <section class="panel">
+          <div class="table-wrap">
+            <table id="assignments-table">
+              <thead>
+                <tr>
+                  <th>Assignment</th>
+                  <th>Course</th>
+                  <th>Due</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-course="IT315">
+                  <td>
+                    <span class="table-link">Interface audit</span>
+                    <small>100 points</small>
+                  </td>
+                  <td>Interface Design Systems</td>
+                  <td>Sep 21, 2026, 11:00 PM</td>
+                  <td><span class="badge good">Graded</span></td>
+                </tr>
+                <tr data-course="IT315">
+                  <td>
+                    <span class="table-link">Usability testing report</span>
+                    <small>100 points</small>
+                  </td>
+                  <td>Interface Design Systems</td>
+                  <td>Sep 27, 2026, 11:00 PM</td>
+                  <td><span class="badge soft">Open</span></td>
+                </tr>
+                <tr data-course="CS241">
+                  <td>
+                    <span class="table-link">Algorithm analysis</span>
+                    <small>50 points</small>
+                  </td>
+                  <td>Data Structures &amp; Algorithms</td>
+                  <td>Sep 23, 2026, 11:00 PM</td>
+                  <td><span class="badge good">Graded</span></td>
+                </tr>
+                <tr data-course="IT332">
+                  <td>
+                    <span class="table-link">Network simulation lab</span>
+                    <small>100 points</small>
+                  </td>
+                  <td>Computer Networks</td>
+                  <td>Sep 29, 2026, 11:00 PM</td>
+                  <td><span class="badge soft">Open</span></td>
+                </tr>
+                <tr data-course="GE201">
+                  <td>
+                    <span class="table-link">Research proposal</span>
+                    <small>100 points</small>
+                  </td>
+                  <td>Research Methods</td>
+                  <td>Oct 1, 2026, 11:00 PM</td>
+                  <td><span class="badge soft">Open</span></td>
+                </tr>
+                <tr data-course="IT320">
+                  <td>
+                    <span class="table-link">Responsive portfolio</span>
+                    <small>100 points</small>
+                  </td>
+                  <td>Web Development</td>
+                  <td>Oct 3, 2026, 11:00 PM</td>
+                  <td><span class="badge soft">Open</span></td>
+                </tr>
+                <tr data-course="IT324">
+                  <td>
+                    <span class="table-link">Entity relationship diagram</span>
+                    <small>100 points</small>
+                  </td>
+                  <td>Database Management Systems</td>
+                  <td>Oct 5, 2026, 11:00 PM</td>
+                  <td><span class="badge soft">Open</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Empty state -->
+          <div class="empty" id="no-results" hidden>
+            <i class="icon" data-lucide="search-x"></i>
+            <h3>No assignments found</h3>
+            <p>Try a different search term or course filter.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" role="status"></div>
+
+    <script src="assets/js/script.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
