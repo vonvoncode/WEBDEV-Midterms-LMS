@@ -42,10 +42,6 @@
             <i class="icon" data-lucide="megaphone"></i>
             Announcements
           </a>
-          <a href="notifications.html">
-            <i class="icon" data-lucide="bell"></i>
-            Notifications
-          </a>
         </nav>
 
         <div class="sidebar-bottom">
@@ -62,7 +58,7 @@
             </div>
           </div>
 
-          <button class="logout" id="button">
+          <button class="logout" type="button">
             <i class="icon" data-lucide="log-out"></i>
             Log out
           </button>
@@ -96,12 +92,15 @@
           >
             <i class="icon" data-lucide="moon"></i>
           </button>
-          <button
-            class="icon-button notification-button"
-            aria-label="Notifications"
-          >
-            <i class="icon" data-lucide="bell"></i>
-            <span class="notification-count">3</span>
+          <button>
+            <a
+              href="notifications.html"
+              class="icon-button notification-button"
+              aria-label="Notifications"
+              aria-current="page"
+            >
+              <i class="icon" data-lucide="bell"></i>
+            </a>
           </button>
         </div>
       </header>
@@ -143,9 +142,9 @@
                 <span>91.00%</span>
                 <strong>3.25</strong>
               </div>
-              <a href="course-detail.html?id=IT315" class="button secondary"
-                >Details</a
-              >
+              <button class="button secondary" data-details-for="IT315">
+                Details
+              </button>
             </div>
 
             <div class="panel grade-card">
@@ -163,9 +162,9 @@
                 <span>88.00%</span>
                 <strong>3.00</strong>
               </div>
-              <a href="course-detail.html?id=CS241" class="button secondary"
-                >Details</a
-              >
+              <button class="button secondary" data-details-for="CS241">
+                Details
+              </button>
             </div>
 
             <div class="panel grade-card">
@@ -183,9 +182,9 @@
                 <span>Pending</span>
                 <strong>—</strong>
               </div>
-              <a href="course-detail.html?id=IT332" class="button secondary"
-                >Details</a
-              >
+              <button class="button secondary" data-details-for="IT332">
+                Details
+              </button>
             </div>
 
             <div class="panel grade-card">
@@ -203,9 +202,9 @@
                 <span>Pending</span>
                 <strong>—</strong>
               </div>
-              <a href="course-detail.html?id=GE201" class="button secondary"
-                >Details</a
-              >
+              <button class="button secondary" data-details-for="GE201">
+                Details
+              </button>
             </div>
 
             <div class="panel grade-card">
@@ -223,9 +222,9 @@
                 <span>Pending</span>
                 <strong>—</strong>
               </div>
-              <a href="course-detail.html?id=IT320" class="button secondary"
-                >Details</a
-              >
+              <button class="button secondary" data-details-for="IT320">
+                Details
+              </button>
             </div>
 
             <div class="panel grade-card">
@@ -243,9 +242,9 @@
                 <span>Pending</span>
                 <strong>—</strong>
               </div>
-              <a href="course-detail.html?id=IT324" class="button secondary"
-                >Details</a
-              >
+              <button class="button secondary" data-details-for="IT324">
+                Details
+              </button>
             </div>
           </div>
 
@@ -330,6 +329,41 @@
       </main>
     </div>
 
+    <!-- Grade details modal -->
+    <dialog id="grade-modal">
+      <div class="dialog-head">
+        <h2 id="modal-course-title">Course</h2>
+        <button class="icon-button" id="modal-close" aria-label="Close">
+          <i class="icon" data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="dialog-content">
+        <p id="modal-summary" style="margin: 16px 0"></p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Assignment</th>
+                <th>Course</th>
+                <th>Due</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="modal-assignment-rows">
+              <!-- rows injected by grades-detail.js -->
+            </tbody>
+          </table>
+        </div>
+        <p class="hint" style="margin-top: 14px">
+          Open an assignment to view its score and feedback.
+        </p>
+      </div>
+      <div class="dialog-actions">
+        <button class="button secondary" id="modal-cancel">Cancel</button>
+        <button class="button primary" id="modal-done">Done</button>
+      </div>
+    </dialog>
+
     <div id="toast" role="status"></div>
 
     <script src="assets/js/script.js"></script>
@@ -337,5 +371,7 @@
     <script>
       lucide.createIcons();
     </script>
+    <script src="assets/js/courses-data.js"></script>
+    <script src="assets/js/grades-detail.js"></script>
   </body>
 </html>
