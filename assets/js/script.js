@@ -1,5 +1,8 @@
-const valid_username = "student";
-const valid_password = "student";
+/* TEMP credentials for both roles — swap these out for real auth later */
+const ACCOUNTS = [
+    { username: "student", password: "student", redirect: "./dashboard.html" },
+    { username: "teacher", password: "teacher", redirect: "./teacher-dashboard.html" },
+];
 
 const loginForm = document.getElementById("login-form");
 const usernameInput = document.getElementById("username");
@@ -8,9 +11,11 @@ const errorMessage = document.getElementById("login-error");
 
 
 
-function validateLogin(username, password) {
+function findAccount(username, password) {
     return (
-        username === valid_username && password === valid_password
+        ACCOUNTS.find(
+            (account) => account.username === username && account.password === password
+        ) || null
     );
 }
 
@@ -29,8 +34,10 @@ if (loginForm) {
             return;
         }
 
-        if (validateLogin(username, password)) {
-            window.location.href = "./dashboard.html";
+        const account = findAccount(username, password);
+
+        if (account) {
+            window.location.href = account.redirect;
         } else {
             errorMessage.textContent =
                 "Invalid username or password.";
