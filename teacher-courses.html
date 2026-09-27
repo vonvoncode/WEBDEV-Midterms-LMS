@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#7056ff" />
+    <title>My Courses · AscendOne for Teachers</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <a href="teacher-dashboard.html" class="brand" aria-label="AscendOne home">
+          <span class="brand-symbol">
+            <i class="icon" data-lucide="book-open"></i>
+          </span>
+          AscendOne
+        </a>
+        <p class="tagline">reach the top as one</p>
+
+        <p class="nav-label">Teacher workspace</p>
+        <nav>
+          <a href="teacher-dashboard.html">
+            <i class="icon" data-lucide="layout-dashboard"></i>
+            Dashboard
+          </a>
+          <a href="teacher-courses.html" class="active">
+            <i class="icon" data-lucide="book-open"></i>
+            My Courses
+          </a>
+          <a href="teacher-grades.html">
+            <i class="icon" data-lucide="graduation-cap"></i>
+            Grades
+          </a>
+          <a href="teacher-announcements.html">
+            <i class="icon" data-lucide="megaphone"></i>
+            Announcements
+          </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <a href="teacher-settings.html" class="settings-link">
+            <i class="icon" data-lucide="settings"></i>
+            Settings
+          </a>
+
+          <div class="user-card">
+            <span class="avatar" id="sidebar-avatar">NR</span>
+            <div>
+              <strong id="sidebar-name">Nimrod Reyes Sajise</strong>
+              <small>Faculty Account</small>
+            </div>
+          </div>
+
+          <button class="logout" id="logout">
+            <i class="icon" data-lucide="log-out"></i>
+            Log out
+          </button>
+        </div>
+      </aside>
+
+      <button id="nav-overlay" aria-label="Close menu"></button>
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-title">
+          <button
+            class="icon-button mobile-menu"
+            aria-label="Open menu"
+            aria-controls="sidebar"
+          >
+            <i class="icon" data-lucide="menu"></i>
+          </button>
+          <div>
+            <h1 id="topbar-title">My Courses</h1>
+            <p>First semester · 2026</p>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <span class="role-chip">Teacher</span>
+          <button
+            class="icon-button"
+            id="theme-toggle"
+            aria-label="Toggle dark mode"
+          >
+            <i class="icon" data-lucide="moon"></i>
+          </button>
+          <button
+            class="icon-button notification-button"
+            aria-label="Notifications"
+          >
+            <i class="icon" data-lucide="bell"></i>
+            <span class="notification-count">5</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main class="main-content">
+        <!-- ============== GRID VIEW ============== -->
+        <div id="courses-view">
+          <p class="eyebrow">Your classes</p>
+          <div class="page-intro">
+            <div>
+              <h2>My courses</h2>
+              <p>The courses you're teaching this semester.</p>
+            </div>
+            <button class="button primary" type="button" id="open-add-course">
+              <i class="icon" data-lucide="plus"></i>
+              Add course
+            </button>
+          </div>
+
+          <div class="toolbar">
+            <div class="search">
+              <i class="icon" data-lucide="search"></i>
+              <input
+                type="search"
+                id="course-search"
+                placeholder="Search your courses"
+              />
+            </div>
+          </div>
+
+          <p id="result-count">6 courses</p>
+
+          <div class="course-grid" id="course-list">
+            <!-- course-card buttons injected by teacher-courses.js -->
+          </div>
+
+          <div class="empty" id="no-results" hidden>
+            <i class="icon" data-lucide="search-x"></i>
+            <h3>No courses found</h3>
+            <p>Try a different search term.</p>
+          </div>
+        </div>
+
+        <!-- ============== COURSE WORKSPACE (shown instead of the grid, no page navigation) ============== -->
+        <div id="course-workspace" hidden>
+          <button class="back-link" type="button" id="back-to-courses">
+            ← Back to courses
+          </button>
+
+          <div class="course-hero" id="workspace-hero">
+            <div>
+              <p class="eyebrow" id="workspace-meta">IT 000 · 0 units</p>
+              <h2 id="workspace-title">Course title</h2>
+              <p id="workspace-sub">Department</p>
+            </div>
+            <div class="hero-progress">
+              <strong id="workspace-percent">0%</strong>
+              <span>Assignments graded</span>
+              <div class="progress"><span id="workspace-progress-bar" style="width: 0%"></span></div>
+            </div>
+          </div>
+
+          <div class="course-tabs" role="tablist">
+            <button type="button" class="active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
+            <button type="button" data-tab="modules" role="tab" aria-selected="false">Modules</button>
+            <button type="button" data-tab="assignments" role="tab" aria-selected="false">Assignments</button>
+            <button type="button" data-tab="students" role="tab" aria-selected="false">Students</button>
+          </div>
+
+          <!-- Overview -->
+          <section class="tab-panel" data-tab-panel="overview">
+            <div class="panel padded">
+              <h2>About this course</h2>
+              <p id="workspace-description"></p>
+            </div>
+          </section>
+
+          <!-- Modules -->
+          <section class="tab-panel" data-tab-panel="modules" hidden>
+            <div class="workspace-toolbar">
+              <div>
+                <h2>Modules</h2>
+                <p id="modules-count">0 modules</p>
+              </div>
+              <button class="button primary" type="button" id="open-add-module">
+                <i class="icon" data-lucide="plus"></i>
+                Add module
+              </button>
+            </div>
+            <div class="module-list" id="module-list"></div>
+          </section>
+
+          <!-- Assignments -->
+          <section class="tab-panel" data-tab-panel="assignments" hidden>
+            <div class="workspace-toolbar">
+              <div>
+                <h2>Assignments</h2>
+                <p id="assignments-count">0 assignments</p>
+              </div>
+              <button class="button primary" type="button" id="open-add-assignment">
+                <i class="icon" data-lucide="plus"></i>
+                New assignment
+              </button>
+            </div>
+            <section class="panel">
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Assignment</th>
+                      <th>Type</th>
+                      <th>Due</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="assignment-rows"></tbody>
+                </table>
+              </div>
+            </section>
+          </section>
+
+          <!-- Students -->
+          <section class="tab-panel" data-tab-panel="students" hidden>
+            <div class="workspace-toolbar">
+              <div>
+                <h2>Students</h2>
+                <p id="students-count">0 students enrolled</p>
+              </div>
+              <a href="teacher-grades.html" class="text-button" id="go-to-grades-link">
+                Go to grades
+                <i class="icon" data-lucide="chevron-right"></i>
+              </a>
+            </div>
+            <section class="panel">
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Student</th>
+                      <th>Email</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="student-rows"></tbody>
+                </table>
+              </div>
+            </section>
+          </section>
+        </div>
+
+        <!-- Not-found state -->
+        <div class="empty" id="course-not-found" hidden>
+          <i class="icon" data-lucide="search-x"></i>
+          <h3>Course not found</h3>
+          <p>We couldn't find the course you're looking for.</p>
+          <button class="button primary" type="button" style="margin-top: 16px" id="not-found-back">
+            Back to courses
+          </button>
+        </div>
+      </main>
+    </div>
+
+    <!-- Add course dialog -->
+    <dialog id="add-course-dialog">
+      <form id="add-course-form">
+        <div class="dialog-head">
+          <h2>Add a course</h2>
+          <button class="icon-button" type="button" data-close-dialog="add-course-dialog" aria-label="Close">
+            <i class="icon" data-lucide="x"></i>
+          </button>
+        </div>
+        <div class="dialog-content">
+          <div class="form-grid">
+            <div class="field">
+              <label for="course-code">Course code</label>
+              <input type="text" id="course-code" placeholder="e.g. IT 318" required />
+            </div>
+            <div class="field">
+              <label for="course-units">Units</label>
+              <input type="number" id="course-units" min="1" max="6" value="3" required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="course-title-input">Course title</label>
+            <input type="text" id="course-title-input" placeholder="e.g. Mobile Application Development" required />
+          </div>
+          <div class="field">
+            <label for="course-department">Department</label>
+            <input type="text" id="course-department" placeholder="e.g. Information Technology" required />
+          </div>
+          <div class="field">
+            <label for="course-description">Description</label>
+            <textarea id="course-description-input" rows="3" placeholder="What will students learn in this course?" required></textarea>
+          </div>
+          <div class="field">
+            <label for="course-color">Cover color</label>
+            <select id="course-color" required>
+              <option value="purple">Purple</option>
+              <option value="blue">Blue</option>
+              <option value="orange">Orange</option>
+              <option value="pink">Pink</option>
+              <option value="teal">Teal</option>
+              <option value="indigo">Indigo</option>
+            </select>
+          </div>
+          <div class="form-error" id="add-course-error"></div>
+        </div>
+        <div class="dialog-actions">
+          <button class="button secondary" type="button" data-close-dialog="add-course-dialog">Cancel</button>
+          <button class="button primary" type="submit">Add course</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- Add module dialog -->
+    <dialog id="add-module-dialog">
+      <form id="add-module-form">
+        <div class="dialog-head">
+          <h2>Add a module</h2>
+          <button class="icon-button" type="button" data-close-dialog="add-module-dialog" aria-label="Close">
+            <i class="icon" data-lucide="x"></i>
+          </button>
+        </div>
+        <div class="dialog-content">
+          <div class="field">
+            <label for="module-title">Module title</label>
+            <input type="text" id="module-title" placeholder="e.g. Introduction to normalization" required />
+          </div>
+          <div class="form-error" id="add-module-error"></div>
+        </div>
+        <div class="dialog-actions">
+          <button class="button secondary" type="button" data-close-dialog="add-module-dialog">Cancel</button>
+          <button class="button primary" type="submit">Add module</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- Add lesson dialog -->
+    <dialog id="add-lesson-dialog">
+      <form id="add-lesson-form">
+        <div class="dialog-head">
+          <h2>Add a lesson</h2>
+          <button class="icon-button" type="button" data-close-dialog="add-lesson-dialog" aria-label="Close">
+            <i class="icon" data-lucide="x"></i>
+          </button>
+        </div>
+        <div class="dialog-content">
+          <div class="field">
+            <label for="lesson-title">Lesson title</label>
+            <input type="text" id="lesson-title" placeholder="e.g. Normal forms walkthrough" required />
+          </div>
+          <div class="field">
+            <label for="lesson-type">Lesson type</label>
+            <select id="lesson-type" required>
+              <option value="reading">Reading</option>
+              <option value="video">Video</option>
+              <option value="link">Link / resource</option>
+            </select>
+          </div>
+          <div class="form-error" id="add-lesson-error"></div>
+        </div>
+        <div class="dialog-actions">
+          <button class="button secondary" type="button" data-close-dialog="add-lesson-dialog">Cancel</button>
+          <button class="button primary" type="submit">Add lesson</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- New assignment dialog -->
+    <dialog id="add-assignment-dialog">
+      <form id="add-assignment-form">
+        <div class="dialog-head">
+          <h2>New assignment</h2>
+          <button class="icon-button" type="button" data-close-dialog="add-assignment-dialog" aria-label="Close">
+            <i class="icon" data-lucide="x"></i>
+          </button>
+        </div>
+        <div class="dialog-content">
+          <div class="field">
+            <label for="assignment-title">Title</label>
+            <input type="text" id="assignment-title" placeholder="e.g. Midterm project" required />
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="assignment-points">Points</label>
+              <input type="number" id="assignment-points" min="1" value="100" required />
+            </div>
+            <div class="field">
+              <label for="assignment-due">Due date</label>
+              <input type="datetime-local" id="assignment-due" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="assignment-instructions">Instructions</label>
+            <textarea id="assignment-instructions" rows="3" placeholder="What should students submit or answer?"></textarea>
+          </div>
+
+          <p class="hint" style="margin: 4px 0 0">Assignment type</p>
+          <div class="type-toggle">
+            <button type="button" class="active" data-assignment-type="upload">
+              <i class="icon" data-lucide="upload"></i>
+              Upload
+            </button>
+            <button type="button" data-assignment-type="quiz">
+              <i class="icon" data-lucide="list-checks"></i>
+              Quiz
+            </button>
+          </div>
+          <input type="hidden" id="assignment-type-value" value="upload" />
+
+          <div class="type-fields" data-type-fields="upload">
+            <p class="hint">Students will submit a file against the instructions above — no further setup needed.</p>
+          </div>
+
+          <div class="type-fields" data-type-fields="quiz" hidden>
+            <div id="quiz-question-list"></div>
+            <button class="button secondary" type="button" id="add-question-button">
+              <i class="icon" data-lucide="plus"></i>
+              Add question
+            </button>
+          </div>
+
+          <div class="form-error" id="add-assignment-error"></div>
+        </div>
+        <div class="dialog-actions">
+          <button class="button secondary" type="button" data-close-dialog="add-assignment-dialog">Cancel</button>
+          <button class="button primary" type="submit">Post assignment</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- Quiz question template, cloned by JS when "Add question" is pressed -->
+    <template id="quiz-question-template">
+      <div class="quiz-question">
+        <div class="quiz-question-head">
+          <small>Question</small>
+          <button type="button" class="remove-question" aria-label="Remove question">
+            <i class="icon" data-lucide="trash-2"></i>
+          </button>
+        </div>
+        <div class="field">
+          <label>Question text</label>
+          <input type="text" class="question-prompt" placeholder="e.g. What does SQL stand for?" required />
+        </div>
+        <div class="quiz-options">
+          <div class="quiz-option-row">
+            <input type="radio" name="correct-option" value="0" checked />
+            <input type="text" class="question-option" placeholder="Option A" required />
+          </div>
+          <div class="quiz-option-row">
+            <input type="radio" name="correct-option" value="1" />
+            <input type="text" class="question-option" placeholder="Option B" required />
+          </div>
+          <div class="quiz-option-row">
+            <input type="radio" name="correct-option" value="2" />
+            <input type="text" class="question-option" placeholder="Option C" required />
+          </div>
+          <div class="quiz-option-row">
+            <input type="radio" name="correct-option" value="3" />
+            <input type="text" class="question-option" placeholder="Option D" required />
+          </div>
+        </div>
+        <p class="hint" style="margin-top: 8px">Select the radio next to the correct option.</p>
+      </div>
+    </template>
+
+    <div id="toast" role="status"></div>
+
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/teacher-data.js"></script>
+    <script src="assets/js/teacher-courses.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

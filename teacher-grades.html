@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#7056ff" />
+    <title>Grades · AscendOne for Teachers</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <a href="teacher-dashboard.html" class="brand" aria-label="AscendOne home">
+          <span class="brand-symbol">
+            <i class="icon" data-lucide="book-open"></i>
+          </span>
+          AscendOne
+        </a>
+        <p class="tagline">reach the top as one</p>
+
+        <p class="nav-label">Teacher workspace</p>
+        <nav>
+          <a href="teacher-dashboard.html">
+            <i class="icon" data-lucide="layout-dashboard"></i>
+            Dashboard
+          </a>
+          <a href="teacher-courses.html">
+            <i class="icon" data-lucide="book-open"></i>
+            My Courses
+          </a>
+          <a href="teacher-grades.html" class="active">
+            <i class="icon" data-lucide="graduation-cap"></i>
+            Grades
+          </a>
+          <a href="teacher-announcements.html">
+            <i class="icon" data-lucide="megaphone"></i>
+            Announcements
+          </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <a href="teacher-settings.html" class="settings-link">
+            <i class="icon" data-lucide="settings"></i>
+            Settings
+          </a>
+
+          <div class="user-card">
+            <span class="avatar" id="sidebar-avatar">NR</span>
+            <div>
+              <strong id="sidebar-name">Nimrod Reyes Sajise</strong>
+              <small>Faculty Account</small>
+            </div>
+          </div>
+
+          <button class="logout" id="logout">
+            <i class="icon" data-lucide="log-out"></i>
+            Log out
+          </button>
+        </div>
+      </aside>
+
+      <button id="nav-overlay" aria-label="Close menu"></button>
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-title">
+          <button
+            class="icon-button mobile-menu"
+            aria-label="Open menu"
+            aria-controls="sidebar"
+          >
+            <i class="icon" data-lucide="menu"></i>
+          </button>
+          <div>
+            <h1>Grades</h1>
+            <p>First semester · 2026</p>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <span class="role-chip">Teacher</span>
+          <button
+            class="icon-button"
+            id="theme-toggle"
+            aria-label="Toggle dark mode"
+          >
+            <i class="icon" data-lucide="moon"></i>
+          </button>
+          <button
+            class="icon-button notification-button"
+            aria-label="Notifications"
+          >
+            <i class="icon" data-lucide="bell"></i>
+            <span class="notification-count">5</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main class="main-content">
+        <p class="eyebrow">Class performance</p>
+        <div class="page-intro">
+          <div>
+            <h2>Grades</h2>
+            <p>Pick a course to review and grade your students.</p>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="filter">
+            <select id="course-filter">
+              <option value="IT315">Interface Design Systems · IT 315</option>
+              <option value="CS241">Data Structures &amp; Algorithms · CS 241</option>
+              <option value="IT332">Computer Networks · IT 332</option>
+              <option value="GE201">Research Methods · GE 201</option>
+              <option value="IT320">Web Development · IT 320</option>
+              <option value="IT324">Database Management Systems · IT 324</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="gpa-banner">
+          <div>
+            <span id="course-banner-title">Course average</span>
+            <p>Weighted by graded assignments in this course</p>
+          </div>
+          <strong id="course-average">—</strong>
+        </div>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Student roster</h2>
+              <p id="roster-count">0 students</p>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <button class="text-button" type="button" data-sort="name">
+                      Student
+                      <i class="icon" data-lucide="chevrons-up-down" style="width:14px;height:14px;"></i>
+                    </button>
+                  </th>
+                  <th>
+                    <button class="text-button" type="button" data-sort="grade">
+                      Overall grade
+                      <i class="icon" data-lucide="chevrons-up-down" style="width:14px;height:14px;"></i>
+                    </button>
+                  </th>
+                  <th>GPA equivalent</th>
+                  <th>Progress</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="roster-rows">
+                <!-- rows injected by teacher-grades.js -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Grade entry dialog -->
+    <dialog id="grade-dialog">
+      <div class="dialog-head">
+        <h2 id="grade-dialog-name">Student</h2>
+        <button class="icon-button" type="button" data-close-dialog="grade-dialog" aria-label="Close">
+          <i class="icon" data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="dialog-content">
+        <p class="muted" id="grade-dialog-course">Course</p>
+        <div id="grade-dialog-rows" style="margin-top: 16px;">
+          <!-- assignment score rows injected by teacher-grades.js -->
+        </div>
+      </div>
+      <div class="dialog-actions">
+        <button class="button secondary" type="button" data-close-dialog="grade-dialog">Close</button>
+        <button class="button primary" type="button" id="save-grades-button">Save grades</button>
+      </div>
+    </dialog>
+
+    <div id="toast" role="status"></div>
+
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/teacher-data.js"></script>
+    <script src="assets/js/teacher-grades.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

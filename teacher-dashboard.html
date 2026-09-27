@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#7056ff" />
+    <title>Dashboard · AscendOne for Teachers</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <a href="teacher-dashboard.html" class="brand" aria-label="AscendOne home">
+          <span class="brand-symbol">
+            <i class="icon" data-lucide="book-open"></i>
+          </span>
+          AscendOne
+        </a>
+        <p class="tagline">reach the top as one</p>
+
+        <p class="nav-label">Teacher workspace</p>
+        <nav>
+          <a href="teacher-dashboard.html" class="active">
+            <i class="icon" data-lucide="layout-dashboard"></i>
+            Dashboard
+          </a>
+          <a href="teacher-courses.html">
+            <i class="icon" data-lucide="book-open"></i>
+            My Courses
+          </a>
+          <a href="teacher-grades.html">
+            <i class="icon" data-lucide="graduation-cap"></i>
+            Grades
+          </a>
+          <a href="teacher-announcements.html">
+            <i class="icon" data-lucide="megaphone"></i>
+            Announcements
+          </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <a href="teacher-settings.html" class="settings-link">
+            <i class="icon" data-lucide="settings"></i>
+            Settings
+          </a>
+
+          <div class="user-card">
+            <span class="avatar" id="sidebar-avatar">NR</span>
+            <div>
+              <strong id="sidebar-name">Nimrod Reyes Sajise</strong>
+              <small>Faculty Account</small>
+            </div>
+          </div>
+
+          <button class="logout" id="logout">
+            <i class="icon" data-lucide="log-out"></i>
+            Log out
+          </button>
+        </div>
+      </aside>
+
+      <button id="nav-overlay" aria-label="Close menu"></button>
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-title">
+          <button
+            class="icon-button mobile-menu"
+            aria-label="Open menu"
+            aria-controls="sidebar"
+          >
+            <i class="icon" data-lucide="menu"></i>
+          </button>
+          <div>
+            <h1>Dashboard</h1>
+            <p>First semester · 2026</p>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <span class="role-chip">Teacher</span>
+          <button
+            class="icon-button"
+            id="theme-toggle"
+            aria-label="Toggle dark mode"
+          >
+            <i class="icon" data-lucide="moon"></i>
+          </button>
+          <button
+            class="icon-button notification-button"
+            aria-label="Notifications"
+          >
+            <i class="icon" data-lucide="bell"></i>
+            <span class="notification-count">5</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main class="main-content">
+        <div class="page-intro">
+          <div>
+            <p class="eyebrow">Sunday, September 27</p>
+            <h2>Good morning, Nimrod.</h2>
+            <p>Here's how your classes are doing today.</p>
+          </div>
+          <a href="teacher-courses.html" class="button primary">
+            <i class="icon" data-lucide="book-open"></i>
+            Go to my courses
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat lavender">
+            <span class="stat-icon">
+              <i class="icon" data-lucide="book-open"></i>
+            </span>
+            <div>
+              <strong id="stat-courses">0</strong>
+              <span>Courses teaching</span>
+            </div>
+          </div>
+
+          <div class="stat sky">
+            <span class="stat-icon">
+              <i class="icon" data-lucide="users"></i>
+            </span>
+            <div>
+              <strong id="stat-students">0</strong>
+              <span>Students enrolled</span>
+            </div>
+          </div>
+
+          <div class="stat peach">
+            <span class="stat-icon">
+              <i class="icon" data-lucide="file-check-2"></i>
+            </span>
+            <div>
+              <strong id="stat-to-grade">0</strong>
+              <span>Assignments to grade</span>
+            </div>
+          </div>
+
+          <div class="stat mint">
+            <span class="stat-icon">
+              <i class="icon" data-lucide="megaphone"></i>
+            </span>
+            <div>
+              <strong id="stat-announcements">0</strong>
+              <span>Announcements posted</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Needs grading + Upcoming -->
+        <div class="dashboard-grid">
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <h2>Needs grading</h2>
+                <p>Open assignments across your courses.</p>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Assignment</th>
+                    <th>Course</th>
+                    <th>Due</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="to-grade-rows">
+                  <!-- rows injected by teacher-dashboard.js -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <h2>Upcoming</h2>
+                <p>Your next deadlines</p>
+              </div>
+              <i class="icon" data-lucide="clock"></i>
+            </div>
+            <div class="schedule-list" id="upcoming-list">
+              <!-- rows injected by teacher-dashboard.js -->
+            </div>
+          </section>
+        </div>
+
+        <!-- My courses -->
+        <div class="section-space">
+          <div class="section-heading">
+            <div>
+              <h2>My courses</h2>
+              <p>Pick up where you left off.</p>
+            </div>
+            <a href="teacher-courses.html" class="text-button">
+              See all
+              <i class="icon" data-lucide="chevron-right"></i>
+            </a>
+          </div>
+
+          <div class="course-grid" id="dashboard-course-grid">
+            <!-- cards injected by teacher-dashboard.js -->
+          </div>
+        </div>
+
+        <!-- Announcements -->
+        <div class="section-space">
+          <div class="section-heading">
+            <div>
+              <h2>Recent announcements</h2>
+              <p>What you last posted to your classes.</p>
+            </div>
+            <a href="teacher-announcements.html" class="text-button">See all</a>
+          </div>
+
+          <section class="panel" id="dashboard-announcements">
+            <!-- rows injected by teacher-dashboard.js -->
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <div id="toast" role="status"></div>
+
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/teacher-data.js"></script>
+    <script src="assets/js/teacher-dashboard.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
