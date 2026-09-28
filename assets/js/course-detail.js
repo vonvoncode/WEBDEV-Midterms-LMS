@@ -110,7 +110,7 @@ function init() {
 
     if (course) {
         renderCourse(course);
-        renderModules(course);
+        // renderModules(course);
     } else {
         showNotFound();
     }
