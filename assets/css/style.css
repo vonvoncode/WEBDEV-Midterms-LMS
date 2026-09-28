@@ -1,4 +1,3 @@
-/* AscendOne design system: shared tokens, components, then responsive layouts. */
 :root {
   color-scheme: light;
   --background: #f7f7fc;
@@ -455,7 +454,7 @@ strong {
   color: var(--muted);
 }
 
-.eyebrow {
+.eyebrow, .eyebrow span {
   font-size: 10px;
   color: var(--primary);
   letter-spacing: .13em;
@@ -529,6 +528,15 @@ strong {
 
 .panel {
   background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  min-width: 0;
+}
+
+.panel-submission {
+  background: var(--primary-soft);
   border: 1px solid var(--line);
   border-radius: 16px;
   box-shadow: var(--shadow);
@@ -1187,10 +1195,10 @@ tbody tr:last-child td {
   margin-top: 28px;
   padding: 22px;
   border-radius: 12px;
-  background: var(--surface-alt);
+  background: var(--background);
   border: 1px solid var(--line);
   font-size: 13px;
-  color: var(--muted);
+  color: var(--text);
 }
 
 .callout h3 {
@@ -1275,7 +1283,7 @@ input[type="checkbox"] {
 }
 
 .feedback {
-  background: var(--primary-soft);
+  background: var(--surface);
   border-radius: 12px;
   padding: 18px;
   margin: 18px 0;

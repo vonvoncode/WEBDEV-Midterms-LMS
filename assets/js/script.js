@@ -150,6 +150,24 @@ function showToast(message) {
 
 window.showToast = showToast;
 
+function setDateToday(date = new Date()) {
+    const now = date;
+    const options = { weekday: 'long', month: 'long', day: 'numeric' };
+
+    const formattedDate = now.toLocaleDateString('en-US', options).toLowerCase();
+    // const newSpan = document.createElement('span');
+    // newSpan.id = datetoday;
+    // newSpan.textContent = formattedDate;
+    // def_date.replaceWith(newSpan);
+    return formattedDate;
+}
+
+const def_date = document.getElementById('datetoday');
+
+if (def_date) {
+    def_date.textContent = setDateToday();
+}
+
 /* Time-based greeting for the dashboard headings */
 function getGreeting(date = new Date()) {
     const hour = date.getHours();
