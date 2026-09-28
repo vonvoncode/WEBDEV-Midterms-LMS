@@ -6,7 +6,7 @@ function buildModalRow(assignment, courseTitle) {
 
     tr.innerHTML = `
     <td>
-      <span class="table-link">${assignment.name}</span>
+      <a class="table-link" href="assignment-detail.html?id=${assignment.id}">${assignment.name}</a>
       <small>${assignment.points} points</small>
     </td>
     <td>${courseTitle}</td>
@@ -69,4 +69,4 @@ function init() {
     });
 }
 
-document.addEventListener("DOMContentLoaded", init)
+document.addEventListener("DOMContentLoaded", init);

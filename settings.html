@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#7056ff" />
+    <title>Settings · AscendOne</title>
+    <link rel="icon" href="assets/favicon-v2.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <!-- Sidebar (Notifications is reached through the topbar bell) -->
+      <aside class="sidebar" id="sidebar">
+        <a href="dashboard.html" class="brand" aria-label="AscendOne home">
+          <span class="brand-symbol">
+            <i class="icon" data-lucide="book-open"></i>
+          </span>
+          AscendOne
+        </a>
+        <p class="tagline">reach the top as one</p>
+
+        <p class="nav-label">Student workspace</p>
+        <nav>
+          <a href="dashboard.html">
+            <i class="icon" data-lucide="layout-dashboard"></i>
+            Dashboard
+          </a>
+          <a href="courses.html">
+            <i class="icon" data-lucide="book-open"></i>
+            My Courses
+          </a>
+          <a href="assessments.html">
+            <i class="icon" data-lucide="file-text"></i>
+            Assessments
+          </a>
+          <a href="grades.html">
+            <i class="icon" data-lucide="graduation-cap"></i>
+            Grades
+          </a>
+          <a href="announcements.html">
+            <i class="icon" data-lucide="megaphone"></i>
+            Announcements
+          </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <a href="settings.html" class="settings-link" aria-current="page">
+            <i class="icon" data-lucide="settings"></i>
+            Settings
+          </a>
+
+          <div class="user-card">
+            <span class="avatar" id="sidebar-avatar">VQ</span>
+            <div>
+              <strong id="sidebar-name">Von Quobie Ferrer</strong>
+              <small>Student Account</small>
+            </div>
+          </div>
+
+          <button class="logout" id="logout" type="button">
+            <i class="icon" data-lucide="log-out"></i>
+            Log out
+          </button>
+        </div>
+      </aside>
+
+      <button id="nav-overlay" aria-label="Close menu"></button>
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-title">
+          <button
+            class="icon-button mobile-menu"
+            aria-label="Open menu"
+            aria-controls="sidebar"
+          >
+            <i class="icon" data-lucide="menu"></i>
+          </button>
+          <div>
+            <h1>Settings</h1>
+            <p>First semester · 2026</p>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <span class="role-chip">Student</span>
+          <button
+            class="icon-button"
+            id="theme-toggle"
+            aria-label="Toggle dark mode"
+          >
+            <i class="icon" data-lucide="moon"></i>
+          </button>
+          <a
+            href="notifications.html"
+            class="icon-button notification-button"
+            aria-label="Notifications"
+          >
+            <i class="icon" data-lucide="bell"></i>
+          </a>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main class="main-content">
+        <p class="eyebrow">Your account</p>
+        <div class="page-intro">
+          <div>
+            <h2>Profile &amp; settings</h2>
+            <p>Make your learning space feel like you.</p>
+          </div>
+        </div>
+
+        <!-- Profile card -->
+        <section class="panel profile-card">
+          <span class="avatar large" id="profile-avatar">VQ</span>
+          <div>
+            <h2 id="profile-name">Von Quobie Ferrer</h2>
+            <p>BS Information Technology · 3rd year</p>
+            <p class="hint">student · @von</p>
+          </div>
+          <button class="button secondary" id="edit-profile-btn" type="button">
+            Edit profile
+          </button>
+        </section>
+
+        <!-- Preferences -->
+        <section class="panel padded section-space">
+          <h2>Preferences</h2>
+
+          <div class="setting-row">
+            <div>
+              <h3>Appearance</h3>
+              <p>Choose a comfortable theme for this session.</p>
+            </div>
+            <button class="button secondary" id="appearance-btn" type="button">
+              Use dark theme
+            </button>
+          </div>
+
+          <div class="setting-row">
+            <div>
+              <h3>Notifications</h3>
+              <p>
+                Assignment updates, new submissions, and grades appear in your
+                notification center.
+              </p>
+            </div>
+            <a href="notifications.html" class="button secondary"
+              >View notifications</a
+            >
+          </div>
+        </section>
+
+        <!-- About -->
+        <section class="panel padded section-space">
+          <h2>About this midterm demo</h2>
+          <p>AscendOne · reach the top as one</p>
+          <p class="muted">
+            Changes survive refreshes and logout in this tab. Separate tabs and
+            devices do not share live data. Closing this tab normally ends the
+            session.
+          </p>
+          <p class="muted">
+            Authentication and file uploads are simulated. Actual file contents
+            are not saved.
+          </p>
+        </section>
+      </main>
+    </div>
+
+    <!-- Edit profile dialog (logic lives in settings.js) -->
+    <dialog id="profile-modal" aria-labelledby="profile-modal-title">
+      <form id="profile-form" novalidate>
+        <div class="dialog-head">
+          <h2 id="profile-modal-title">Edit profile</h2>
+          <button
+            class="icon-button"
+            id="profile-modal-close"
+            type="button"
+            aria-label="Close"
+          >
+            <i class="icon" data-lucide="x"></i>
+          </button>
+        </div>
+
+        <div class="dialog-content">
+          <div class="field">
+            <label for="display-name">Display name</label>
+            <input
+              type="text"
+              id="display-name"
+              name="display-name"
+              maxlength="50"
+              autocomplete="name"
+              required
+            />
+            <small
+              >Your username, role, and academic program remain assigned by the
+              demo accounts.</small
+            >
+          </div>
+          <p class="form-error" id="profile-error" role="alert"></p>
+        </div>
+
+        <div class="dialog-actions">
+          <button class="button secondary" id="profile-cancel" type="button">
+            Cancel
+          </button>
+          <button class="button primary" type="submit">Save changes</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="toast" role="status"></div>
+
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/settings,js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

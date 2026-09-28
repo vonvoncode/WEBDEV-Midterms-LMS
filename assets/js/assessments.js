@@ -4,6 +4,7 @@ function buildAssessmentList() {
     COURSES.forEach((course) => {
         course.assignments.forEach((assignment) => {
             list.push({
+                id: assignment.id,
                 name: assignment.name,
                 points: assignment.points,
                 due: assignment.due,
@@ -28,7 +29,7 @@ function buildAssessmentRow(item) {
 
     tr.innerHTML = `
     <td>
-      <span class="table-link">${item.name}</span>
+      <a class="table-link" href="assignment-detail.html?id=${item.id}">${item.name}</a>
       <small>${item.points} points</small>
     </td>
     <td>${item.courseTitle}</td>

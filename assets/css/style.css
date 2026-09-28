@@ -34,6 +34,25 @@
   --shadow: 0 12px 32px rgb(0 0 0 / 12%);
 }
 
+:root[data-theme="dark"] .login-story {
+  background: #232236;
+  border-color: var(--line);
+  color: var(--text);
+}
+
+:root[data-theme="dark"] .login-story-copy > span {
+  color: var(--primary);
+}
+
+:root[data-theme="dark"] .login-story-copy p,
+:root[data-theme="dark"] .story-footer {
+  color: var(--muted);
+}
+
+:root[data-theme="dark"] .orbit {
+  border-color: #4a4470;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -1726,9 +1745,16 @@ legend {
 
 .login-main {
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
   padding: 45px;
+}
+
+.login-theme-toggle {
+  position: absolute;
+  top: 24px;
+  right: 24px;
 }
 
 #login-panel {

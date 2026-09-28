@@ -1,8 +1,10 @@
-/* TEMP credentials for both roles — swap these out for real auth later */
 const ACCOUNTS = [
     { username: "student", password: "student", redirect: "./dashboard.html" },
     { username: "teacher", password: "teacher", redirect: "./teacher-dashboard.html" },
 ];
+
+/* Who is signed in for this tab (set at login, cleared at logout) */
+const USER_KEY = 'ascendone-user';
 
 const loginForm = document.getElementById("login-form");
 const usernameInput = document.getElementById("username");
@@ -37,6 +39,11 @@ if (loginForm) {
         const account = findAccount(username, password);
 
         if (account) {
+            try {
+                sessionStorage.setItem(USER_KEY, account.username);
+            } catch (e) {
+                /* storage unavailable: pages fall back to guessing the role from the file name */
+            }
             window.location.href = account.redirect;
         } else {
             errorMessage.textContent =
@@ -52,6 +59,11 @@ const logoutbutton = document.getElementById('logout');
 
 if (logoutbutton) {
     logoutbutton.addEventListener('click', () => {
+        try {
+            sessionStorage.removeItem(USER_KEY);
+        } catch (e) {
+            /* ignore */
+        }
         window.location.href = './index.html';
     });
 }
@@ -137,3 +149,68 @@ function showToast(message) {
 }
 
 window.showToast = showToast;
+
+/* Display name: saved from a Settings page, applied to the sidebar on every page.
+   Stored per account so the student and teacher names never mix in the same tab. */
+const DISPLAY_NAME_KEY = 'ascendone-display-name';
+
+function getCurrentUser() {
+    try {
+        const stored = sessionStorage.getItem(USER_KEY);
+        if (stored) return stored;
+    } catch (e) {
+        /* fall through to the file-name guess */
+    }
+    // Page opened directly without logging in (e.g. while developing)
+    return window.location.pathname.includes('teacher-') ? 'teacher' : 'student';
+}
+
+function displayNameKey() {
+    return `${DISPLAY_NAME_KEY}:${getCurrentUser()}`;
+}
+
+function getNameInitials(name) {
+    return name
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map((part) => part[0])
+        .join('')
+        .toUpperCase();
+}
+
+function getSavedDisplayName() {
+    try {
+        return sessionStorage.getItem(displayNameKey());
+    } catch (e) {
+        return null;
+    }
+}
+
+function applyDisplayName(name) {
+    if (!name) return;
+
+    const initials = getNameInitials(name);
+
+    document.querySelectorAll('.user-card strong').forEach((el) => {
+        el.textContent = name;
+    });
+    document.querySelectorAll('.user-card .avatar').forEach((el) => {
+        el.textContent = initials;
+    });
+    document.querySelectorAll('[data-user-first-name]').forEach((el) => {
+        el.textContent = name.split(/\s+/)[0];
+    });
+}
+
+function saveDisplayName(name) {
+    try {
+        sessionStorage.setItem(displayNameKey(), name);
+    } catch (e) {
+        /* storage unavailable: the name still updates for this page view */
+    }
+    applyDisplayName(name);
+}
+
+// Runs on every page that loads this script
+applyDisplayName(getSavedDisplayName());

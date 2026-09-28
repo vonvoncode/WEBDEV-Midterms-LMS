@@ -29,6 +29,14 @@
         <p class="story-footer">AscendOne · reach the top as one</p>
       </section>
       <section class="login-main" aria-label="Account login">
+        <button
+          type="button"
+          class="icon-button login-theme-toggle"
+          id="theme-toggle"
+          aria-label="Toggle dark mode"
+        >
+          <i class="icon" data-lucide="moon"></i>
+        </button>
         <div id="login-panel">
           <div class="login-form-wrap">
             <p class="eyebrow">Your next chapter starts here</p>
@@ -59,11 +67,7 @@
 
               <div id="login-error" class="form-error"></div>
 
-              <button
-                class="button primary full"
-                type="submit"
-                class="btn-continue"
-              >
+              <button class="button primary full btn-continue" type="submit">
                 Continue
                 <span class="btn-arrow" aria-hidden="true">&#8250;</span>
               </button>
@@ -72,6 +76,10 @@
         </div>
       </section>
     </main>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="assets/js/script.js"></script>
+    <script>
+      lucide.createIcons();
+    </script>
   </body>
 </html>

@@ -12,8 +12,8 @@ const COURSES = [
         percent: "91.00%",
         gpa: "3.25",
         assignments: [
-            { name: "Interface audit", points: 100, earnedPoints: 91, due: "Sep 21, 2026, 11:00 PM", status: "graded" },
-            { name: "Usability testing report", points: 100, due: "Sep 27, 2026, 11:00 PM", status: "open" }
+            { id: "IT315-A1", name: "Interface audit", points: 100, earnedPoints: 91, due: "Sep 21, 2026, 11:00 PM", status: "graded" },
+            { id: "IT315-A2", name: "Usability testing report", points: 100, due: "Sep 27, 2026, 11:00 PM", status: "open" }
         ]
     },
     {
@@ -29,7 +29,7 @@ const COURSES = [
         percent: "88.00%",
         gpa: "3.00",
         assignments: [
-            { name: "Algorithm analysis", points: 50, earnedPoints: 44, due: "Sep 23, 2026, 11:00 PM", status: "graded" }
+            { id: "CS241-A1", name: "Algorithm analysis", points: 50, earnedPoints: 44, due: "Sep 23, 2026, 11:00 PM", status: "graded" }
         ]
     },
     {
@@ -45,7 +45,7 @@ const COURSES = [
         percent: null,
         gpa: null,
         assignments: [
-            { name: "Network simulation lab", points: 100, due: "Sep 29, 2026, 11:00 PM", status: "open" }
+            { id: "IT332-A1", name: "Network simulation lab", points: 100, due: "Sep 29, 2026, 11:00 PM", status: "open" }
         ]
     },
     {
@@ -61,7 +61,7 @@ const COURSES = [
         percent: null,
         gpa: null,
         assignments: [
-            { name: "Research proposal", points: 100, due: "Oct 1, 2026, 11:00 PM", status: "open" }
+            { id: "GE201-A1", name: "Research proposal", points: 100, due: "Oct 1, 2026, 11:00 PM", status: "open" }
         ]
     },
     {
@@ -77,7 +77,7 @@ const COURSES = [
         percent: null,
         gpa: null,
         assignments: [
-            { name: "Responsive portfolio", points: 100, due: "Oct 3, 2026, 11:00 PM", status: "open" }
+            { id: "IT320-A1", name: "Responsive portfolio", points: 100, due: "Oct 3, 2026, 11:00 PM", status: "open" }
         ]
     },
     {
@@ -93,7 +93,7 @@ const COURSES = [
         percent: null,
         gpa: null,
         assignments: [
-            { name: "Entity relationship diagram", points: 100, due: "Oct 5, 2026, 11:00 PM", status: "open" }
+            { id: "IT324-A1", name: "Entity relationship diagram", points: 100, due: "Oct 5, 2026, 11:00 PM", status: "open" }
         ]
     }
 ];
