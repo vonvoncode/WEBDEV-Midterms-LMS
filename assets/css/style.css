@@ -336,7 +336,7 @@ strong {
   font-weight: 700;
 }
 
-.avatar.large {
+.avatar .large {
   width: 70px;
   height: 70px;
   font-size: 23px;

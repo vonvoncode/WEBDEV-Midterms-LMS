@@ -15,13 +15,10 @@
 
     let currentName = getSavedDisplayName() || DEFAULT_NAME;
 
-    // The sidebar is handled by script.js; this page also has the big profile card
     function renderProfileCard(name) {
         document.getElementById('profile-name').textContent = name;
         document.getElementById('profile-avatar').textContent = getNameInitials(name);
     }
-
-    /* ---------- Edit profile dialog ---------- */
 
     function openModal() {
         nameInput.value = currentName;
@@ -38,7 +35,6 @@
     function handleSubmit(event) {
         event.preventDefault();
 
-        // Trim and collapse repeated spaces
         const value = nameInput.value.trim().replace(/\s+/g, ' ');
 
         if (!value) {
@@ -54,7 +50,7 @@
         }
 
         currentName = value;
-        saveDisplayName(value); // saves for every page + updates the sidebar here
+        saveDisplayName(value);
         renderProfileCard(value);
         closeModal();
 
