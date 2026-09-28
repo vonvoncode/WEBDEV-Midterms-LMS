@@ -2000,6 +2000,22 @@ legend {
   padding-top: 16px;
 }
 
+.detail-main { 
+  display: grid; 
+  gap: 24px; 
+  min-width: 0; 
+}
+
+.pdf-frame {
+  display: block;
+  width: 100%;
+  height: 78vh;
+  min-height: 520px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-alt);
+}
+
 .lesson-list {
   display: grid;
   gap: 9px;

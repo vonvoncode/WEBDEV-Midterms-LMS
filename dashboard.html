@@ -225,34 +225,12 @@
           <section class="panel">
             <div class="panel-heading">
               <div>
-                <h2>Upcoming</h2>
-                <p>Your next deadlines</p>
+                <h2>Course modules</h2>
+                <p id="modules-subtitle">Last viewed modules</p>
               </div>
-              <i class="icon" data-lucide="clock"></i>
+              <i class="icon" data-lucide="book-open"></i>
             </div>
-            <div class="schedule-list">
-              <a href="#">
-                <time><b>27</b><span>Sep</span></time>
-                <div>
-                  <strong>Usability testing report</strong>
-                  <small>Sep 27, 2026, 11:00 PM</small>
-                </div>
-              </a>
-              <a href="#">
-                <time><b>29</b><span>Sep</span></time>
-                <div>
-                  <strong>Network simulation lab</strong>
-                  <small>Sep 29, 2026, 11:00 PM</small>
-                </div>
-              </a>
-              <a href="#">
-                <time><b>1</b><span>Oct</span></time>
-                <div>
-                  <strong>Research proposal</strong>
-                  <small>Oct 1, 2026, 11:00 PM</small>
-                </div>
-              </a>
-            </div>
+            <div class="activity-list" id="dashboard-modules"></div>
           </section>
         </div>
 
@@ -365,6 +343,7 @@
     <div id="toast" role="status"></div>
 
     <script src="assets/js/script.js"></script>
+    <script src="assets/js/modules-data.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
       lucide.createIcons();

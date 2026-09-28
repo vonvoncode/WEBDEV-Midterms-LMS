@@ -126,30 +126,42 @@
         </div>
 
         <div class="detail-grid">
-          <!-- Course assignments -->
-          <section class="panel">
-            <div class="panel-heading">
-              <div>
-                <h2>Course assignments</h2>
-                <p id="assignment-count">0 opportunities to learn</p>
+          <div class="detail-main">
+            <!-- Course assignments -->
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <h2>Course assignments</h2>
+                  <p id="assignment-count">0 opportunities to learn</p>
+                </div>
               </div>
-            </div>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Assignment</th>
-                    <th>Course</th>
-                    <th>Due</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody id="assignment-rows">
-                  <!-- rows injected by course-detail.js -->
-                </tbody>
-              </table>
-            </div>
-          </section>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Assignment</th>
+                      <th>Course</th>
+                      <th>Due</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="assignment-rows">
+                    <!-- rows injected by course-detail.js -->
+                  </tbody>
+                </table>
+              </div>
+            </section>
+            <!-- Course modules -->
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <h2>Course modules</h2>
+                  <p id="module-count">0 modules</p>
+                </div>
+              </div>
+              <div class="activity-list" id="module-list"></div>
+            </section>
+          </div>
 
           <!-- Side panel: instructor + grade -->
           <div class="detail-side">
@@ -195,6 +207,8 @@
     <script src="assets/js/script.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="assets/js/courses-data.js"></script>
+    <script src="assets/js/modules-data.js"></script>
+    <script src="assets/js/dashboard.js"></script>
     <script src="assets/js/course-detail.js"></script>
   </body>
 </html>

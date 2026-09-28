@@ -27,6 +27,29 @@ function buildAssignmentRow(assignment, courseTitle) {
     return tr;
 }
 
+function renderModules(course) {
+    const modules = MODULES.filter((m) => m.courseId === course.id);
+    const list = document.getElementById('module-list');
+
+    document.getElementById('module-count').textContent =
+        `${modules.length} ${modules.length === 1 ? 'module' : 'modules'} to read`;
+
+    if (modules.length === 0) {
+        list.innerHTML = '<p class="muted" style="padding:20px 0;">No modules have been posted for this course yet.</p>';
+        return;
+    }
+
+    list.innerHTML = modules.map((m) => `
+    <a href="module-detail.html?id=${m.id}">
+      <span class="activity-icon"><i class="icon" data-lucide="file-text"></i></span>
+      <div>
+        <strong>Module ${m.number} · ${m.title}</strong>
+        <small>${m.description}</small>
+      </div>
+      <i class="icon" data-lucide="chevron-right"></i>
+    </a>`).join('');
+}
+
 function renderCourse(course) {
     document.title = `${course.title} · AscendOne`;
 
@@ -61,6 +84,10 @@ function renderCourse(course) {
         `${gradedCount} of ${totalCount} assignments graded`;
 
     document.getElementById("course-content").hidden = false;
+
+    if (course) {
+        renderModules(course)
+    }
 
     if (window.lucide) {
         lucide.createIcons();
