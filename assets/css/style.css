@@ -619,6 +619,22 @@ strong {
   background: var(--surface-alt);
 }
 
+[data-theme="dark"] .stat.lavender {
+  background: #2b2645;
+}
+
+[data-theme="dark"] .stat.sky {
+  background: #1e2d3e;
+}
+
+[data-theme="dark"] .stat.peach {
+  background: #362a1e;
+}
+
+[data-theme="dark"] .stat.mint {
+  background: #1b3329;
+}
+
 .dashboard-grid {
   display: grid;
   grid-template-columns: 1.65fr 1fr;
@@ -1015,7 +1031,14 @@ tbody tr:last-child td {
 
 .back-link {
   display: inline-block;
+  appearance: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
   font-size: 13px;
+  line-height: inherit;
+  text-align: left;
   color: var(--muted);
   margin-bottom: 24px;
 }
