@@ -44,7 +44,7 @@
                 ({ course, assignment }) => `
           <tr>
             <td>
-              <a class="table-link" href="assignment-detail.html?id=${encodeURIComponent(assignment.id)}">${escapeHTML(assignment.name)}</a>
+              <a class="table-link" href="student-assignment-detail.html?id=${encodeURIComponent(assignment.id)}">${escapeHTML(assignment.name)}</a>
               <small>${assignment.points} points</small>
             </td>
             <td>${escapeHTML(course.title)}</td>
@@ -97,7 +97,7 @@
                 const label = course ? `${course.code} · Module ${module.number}` : `Module ${module.number}`;
 
                 return `
-          <a href="module-detail.html?id=${encodeURIComponent(module.id)}">
+          <a href="student-module-detail.html?id=${encodeURIComponent(module.id)}">
             <span class="activity-icon"><i class="icon" data-lucide="file-text"></i></span>
             <div>
               <strong>${escapeHTML(module.title)}</strong>

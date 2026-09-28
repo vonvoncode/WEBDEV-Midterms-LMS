@@ -4,15 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#7056ff" />
-    <title>Assignment · AscendOne</title>
-    <link rel="icon" href="assets/favicon-v2.svg" type="image/svg+xml" />
+    <title>Assessments · AscendOne</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
     <div class="app-shell">
       <!-- Sidebar -->
       <aside class="sidebar" id="sidebar">
-        <a href="dashboard.html" class="brand" aria-label="AscendOne home">
+        <a
+          href="student-dashboard.html"
+          class="brand"
+          aria-label="AscendOne home"
+        >
           <span class="brand-symbol">
             <i class="icon" data-lucide="book-open"></i>
           </span>
@@ -22,30 +26,30 @@
 
         <p class="nav-label">Student workspace</p>
         <nav>
-          <a href="dashboard.html">
+          <a href="student-dashboard.html">
             <i class="icon" data-lucide="layout-dashboard"></i>
             Dashboard
           </a>
-          <a href="courses.html" class="active">
+          <a href="student-courses.html">
             <i class="icon" data-lucide="book-open"></i>
             My Courses
           </a>
-          <a href="assessments.html">
+          <a href="student-student-assessments.html" class="active">
             <i class="icon" data-lucide="file-text"></i>
             Assessments
           </a>
-          <a href="grades.html">
+          <a href="student-grades.html">
             <i class="icon" data-lucide="graduation-cap"></i>
             Grades
           </a>
-          <a href="announcements.html">
+          <a href="student-announcements.html">
             <i class="icon" data-lucide="megaphone"></i>
             Announcements
           </a>
         </nav>
 
         <div class="sidebar-bottom">
-          <a href="settings.html" class="settings-link">
+          <a href="student-settings.html" class="settings-link">
             <i class="icon" data-lucide="settings"></i>
             Settings
           </a>
@@ -58,7 +62,7 @@
             </div>
           </div>
 
-          <button class="logout" id="logout" type="button">
+          <button class="logout" id="logout">
             <i class="icon" data-lucide="log-out"></i>
             Log out
           </button>
@@ -78,7 +82,7 @@
             <i class="icon" data-lucide="menu"></i>
           </button>
           <div>
-            <h1>Assignment</h1>
+            <h1>Assessments</h1>
             <p>First semester · 2026</p>
           </div>
         </div>
@@ -93,72 +97,69 @@
             <i class="icon" data-lucide="moon"></i>
           </button>
           <a
-            href="notifications.html"
+            href="student-notifications.html"
             class="icon-button notification-button"
             aria-label="Notifications"
+            aria-current="page"
           >
             <i class="icon" data-lucide="bell"></i>
+            <span class="notification-count">3</span>
           </a>
         </div>
       </header>
 
-      <!-- Assignment content (filled in by assignment-detail.js) -->
-      <main class="main-content" id="assignment-content" hidden>
-        <a href="courses.html" class="back-link" id="back-link"
-          >← Back to courses</a
-        >
-
+      <!-- Main content -->
+      <main class="main-content">
+        <p class="eyebrow">Stay on track</p>
         <div class="page-intro">
           <div>
-            <p class="eyebrow" id="assignment-eyebrow">Assignment</p>
-            <h2 id="assignment-title">Assignment</h2>
-            <p id="assignment-points">0 points</p>
-          </div>
-
-          <div class="due-card">
-            <i class="icon" data-lucide="clock"></i>
-            <div>
-              <strong id="due-text">Due —</strong>
-              <small id="late-text">Late submissions allowed</small>
-            </div>
+            <h2>Assessments</h2>
+            <p>Your assignments, deadlines, and submission status.</p>
           </div>
         </div>
 
-        <div class="assignment-grid">
-          <section class="panel padded">
-            <h2>Instructions</h2>
-            <p id="instructions-text"></p>
+        <div class="toolbar">
+          <div class="search">
+            <i class="icon" data-lucide="search"></i>
+            <input
+              type="search"
+              id="assignment-search"
+              placeholder="Search assignments"
+            />
+          </div>
 
-            <div class="callout">
-              <h3>What to submit</h3>
-              <p>
-                Write your answer or paste a document link your teacher can
-                open. An optional file record helps identify your work.
-              </p>
-              <p>
-                Ungraded submissions can be replaced while submissions are open.
-                Late work is labeled for your teacher.
-              </p>
-            </div>
-          </section>
-
-          <section class="panel padded">
-            <h2>Your submission</h2>
-            <div id="submission-body"></div>
-          </section>
+          <div class="filter">
+            <select id="course-filter">
+              <option value="all">All courses</option>
+              <!-- course options injected by assessments.js from courses-data.js -->
+            </select>
+          </div>
         </div>
-      </main>
 
-      <!-- Not found state -->
-      <main class="main-content" id="not-found" hidden>
-        <div class="empty">
-          <i class="icon" data-lucide="search-x"></i>
-          <h3>Assignment not found</h3>
-          <p>We couldn't find the assignment you're looking for.</p>
-          <a href="assessments.html" class="button primary"
-            >Back to assessments</a
-          >
-        </div>
+        <section class="panel">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Assignment</th>
+                  <th>Course</th>
+                  <th>Due</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="assignment-rows">
+                <!-- rows injected by assessments.js -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Empty state -->
+          <div class="empty" id="no-results" hidden>
+            <i class="icon" data-lucide="search-x"></i>
+            <h3>No assignments found</h3>
+            <p>Try a different search term or course filter.</p>
+          </div>
+        </section>
       </main>
     </div>
 
@@ -167,7 +168,6 @@
     <script src="assets/js/script.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="assets/js/courses-data.js"></script>
-    <script src="assets/js/assessment-data.js"></script>
-    <script src="assets/js/assignment-detail.js"></script>
+    <script src="assets/js/assessments.js"></script>
   </body>
 </html>

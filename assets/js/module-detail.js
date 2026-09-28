@@ -19,7 +19,7 @@
         document.title = `${module.title} · AscendOne`;
 
         const backLink = document.getElementById('back-link');
-        backLink.href = `course-detail.html?id=${encodeURIComponent(course.id)}`;
+        backLink.href = `student-course-detail.html?id=${encodeURIComponent(course.id)}`;
         backLink.textContent = `← Back to ${course.title}`;
 
         document.getElementById('module-eyebrow').textContent = `${course.code} · Module ${module.number}`;

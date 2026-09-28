@@ -16,7 +16,7 @@ function buildAssignmentRow(assignment, courseTitle) {
 
     tr.innerHTML = `
     <td>
-      <a class="table-link" href="assignment-detail.html?id=${assignment.id}">${assignment.name}</a>
+      <a class="table-link" href="student-assignment-detail.html?id=${assignment.id}">${assignment.name}</a>
       <small>${assignment.points} points</small>
     </td>
     <td>${courseTitle}</td>
@@ -40,7 +40,7 @@ function renderModules(course) {
     }
 
     list.innerHTML = modules.map((m) => `
-    <a href="module-detail.html?id=${m.id}">
+    <a href="student-module-detail.html?id=${m.id}">
       <span class="activity-icon"><i class="icon" data-lucide="file-text"></i></span>
       <div>
         <strong>Module ${m.number} · ${m.title}</strong>

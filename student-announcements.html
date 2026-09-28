@@ -4,15 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#7056ff" />
-    <title>Notifications · AscendOne</title>
+    <title>Announcements · AscendOne</title>
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
     <div class="app-shell">
-      <!-- Sidebar (no Notifications nav item — bell icon in the topbar is the only entry point) -->
+      <!-- Sidebar -->
       <aside class="sidebar" id="sidebar">
-        <a href="dashboard.html" class="brand" aria-label="AscendOne home">
+        <a
+          href="student-dashboard.html"
+          class="brand"
+          aria-label="AscendOne home"
+        >
           <span class="brand-symbol">
             <i class="icon" data-lucide="book-open"></i>
           </span>
@@ -22,30 +26,30 @@
 
         <p class="nav-label">Student workspace</p>
         <nav>
-          <a href="dashboard.html">
+          <a href="student-dashboard.html">
             <i class="icon" data-lucide="layout-dashboard"></i>
             Dashboard
           </a>
-          <a href="courses.html">
+          <a href="student-courses.html">
             <i class="icon" data-lucide="book-open"></i>
             My Courses
           </a>
-          <a href="assessments.html">
+          <a href="student-assessments.html">
             <i class="icon" data-lucide="file-text"></i>
             Assessments
           </a>
-          <a href="grades.html">
+          <a href="student-grades.html">
             <i class="icon" data-lucide="graduation-cap"></i>
             Grades
           </a>
-          <a href="announcements.html">
+          <a href="student-announcements.html" class="active">
             <i class="icon" data-lucide="megaphone"></i>
             Announcements
           </a>
         </nav>
 
         <div class="sidebar-bottom">
-          <a href="settings.html" class="settings-link">
+          <a href="student-settings.html" class="settings-link">
             <i class="icon" data-lucide="settings"></i>
             Settings
           </a>
@@ -78,7 +82,7 @@
             <i class="icon" data-lucide="menu"></i>
           </button>
           <div>
-            <h1>Notifications</h1>
+            <h1>Announcements</h1>
             <p>First semester · 2026</p>
           </div>
         </div>
@@ -93,43 +97,86 @@
             <i class="icon" data-lucide="moon"></i>
           </button>
           <a
-            href="notifications.html"
+            href="student-notifications.html"
             class="icon-button notification-button"
             aria-label="Notifications"
             aria-current="page"
           >
             <i class="icon" data-lucide="bell"></i>
+            <span class="notification-count">3</span>
           </a>
         </div>
       </header>
 
       <!-- Main content -->
       <main class="main-content">
-        <p class="eyebrow">Your activity</p>
+        <p class="eyebrow">Course updates</p>
         <div class="page-intro">
           <div>
-            <h2>Notifications</h2>
-            <p>Keep up with assignments, submissions, and feedback.</p>
+            <h2>Announcements</h2>
+            <p>Messages and updates from your learning community.</p>
           </div>
         </div>
 
-        <section class="panel">
-          <div class="notification-row unread">
-            <i class="icon" data-lucide="bell"></i>
-            <div>
-              <strong>Your algorithm analysis feedback is ready.</strong>
-              <small>Sep 24, 2026, 11:00 PM</small>
-            </div>
+        <div class="toolbar">
+          <div class="search">
+            <i class="icon" data-lucide="search"></i>
+            <input
+              type="search"
+              id="announcement-search"
+              placeholder="Search announcements"
+            />
           </div>
+        </div>
 
-          <div class="notification-row unread">
-            <i class="icon" data-lucide="bell"></i>
+        <div id="announcement-list">
+          <article class="panel announcement-card">
+            <span class="course-icon purple">
+              <i class="icon" data-lucide="book-open"></i>
+            </span>
             <div>
-              <strong>Your interface audit has been graded.</strong>
-              <small>Sep 22, 2026, 11:00 PM</small>
+              <div class="section-heading">
+                <div>
+                  <small>Interface Design Systems</small>
+                  <h3>Welcome to our design studio</h3>
+                </div>
+                <time>Sep 25, 2026, 9:00 AM</time>
+              </div>
+              <p>
+                Bring your prototype to our next session. We will practice
+                giving constructive feedback.
+              </p>
+              <p class="hint">By Nimrod Reyes Sajise</p>
             </div>
+          </article>
+
+          <article class="panel announcement-card">
+            <span class="course-icon orange">
+              <i class="icon" data-lucide="book-open"></i>
+            </span>
+            <div>
+              <div class="section-heading">
+                <div>
+                  <small>Computer Networks</small>
+                  <h3>Network lab reminder</h3>
+                </div>
+                <time>Sep 24, 2026, 10:00 AM</time>
+              </div>
+              <p>
+                Check your subnet calculations before submitting your simulation
+                lab.
+              </p>
+              <p class="hint">By Nimrod Reyes Sajise</p>
+            </div>
+          </article>
+
+          <!-- Empty state -->
+          <div class="empty" id="no-results" hidden>
+            <i class="icon" data-lucide="search-x"></i>
+            <h3>No announcements found</h3>
+            <p>Try a different search term.</p>
           </div>
-        </section>
+        </div>
       </main>
     </div>
 

@@ -29,7 +29,7 @@ function buildAssessmentRow(item) {
 
     tr.innerHTML = `
     <td>
-      <a class="table-link" href="assignment-detail.html?id=${item.id}">${item.name}</a>
+      <a class="table-link" href="student-assignment-detail.html?id=${item.id}">${item.name}</a>
       <small>${item.points} points</small>
     </td>
     <td>${item.courseTitle}</td>

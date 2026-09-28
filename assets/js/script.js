@@ -1,5 +1,5 @@
 const ACCOUNTS = [
-    { username: "student", password: "student", redirect: "./dashboard.html" },
+    { username: "student", password: "student", redirect: "./student-dashboard.html" },
     { username: "teacher", password: "teacher", redirect: "./teacher-dashboard.html" },
 ];
 

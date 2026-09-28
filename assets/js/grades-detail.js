@@ -6,7 +6,7 @@ function buildModalRow(assignment, courseTitle) {
 
     tr.innerHTML = `
     <td>
-      <a class="table-link" href="assignment-detail.html?id=${assignment.id}">${assignment.name}</a>
+      <a class="table-link" href="student-assignment-detail.html?id=${assignment.id}">${assignment.name}</a>
       <small>${assignment.points} points</small>
     </td>
     <td>${courseTitle}</td>

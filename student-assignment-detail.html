@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#7056ff" />
-    <title>Module · AscendOne</title>
+    <title>Assignment · AscendOne</title>
     <link rel="icon" href="assets/favicon-v2.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
@@ -12,7 +12,11 @@
     <div class="app-shell">
       <!-- Sidebar -->
       <aside class="sidebar" id="sidebar">
-        <a href="dashboard.html" class="brand" aria-label="AscendOne home">
+        <a
+          href="student-dashboard.html"
+          class="brand"
+          aria-label="AscendOne home"
+        >
           <span class="brand-symbol">
             <i class="icon" data-lucide="book-open"></i>
           </span>
@@ -22,30 +26,30 @@
 
         <p class="nav-label">Student workspace</p>
         <nav>
-          <a href="dashboard.html">
+          <a href="student-dashboard.html">
             <i class="icon" data-lucide="layout-dashboard"></i>
             Dashboard
           </a>
-          <a href="courses.html" class="active">
+          <a href="student-courses.html" class="active">
             <i class="icon" data-lucide="book-open"></i>
             My Courses
           </a>
-          <a href="assessments.html">
+          <a href="student-assessments.html">
             <i class="icon" data-lucide="file-text"></i>
             Assessments
           </a>
-          <a href="grades.html">
+          <a href="student-grades.html">
             <i class="icon" data-lucide="graduation-cap"></i>
             Grades
           </a>
-          <a href="announcements.html">
+          <a href="student-announcements.html">
             <i class="icon" data-lucide="megaphone"></i>
             Announcements
           </a>
         </nav>
 
         <div class="sidebar-bottom">
-          <a href="settings.html" class="settings-link">
+          <a href="student-settings.html" class="settings-link">
             <i class="icon" data-lucide="settings"></i>
             Settings
           </a>
@@ -78,7 +82,7 @@
             <i class="icon" data-lucide="menu"></i>
           </button>
           <div>
-            <h1>Module</h1>
+            <h1>Assignment</h1>
             <p>First semester · 2026</p>
           </div>
         </div>
@@ -93,7 +97,7 @@
             <i class="icon" data-lucide="moon"></i>
           </button>
           <a
-            href="notifications.html"
+            href="student-notifications.html"
             class="icon-button notification-button"
             aria-label="Notifications"
           >
@@ -102,65 +106,62 @@
         </div>
       </header>
 
-      <!-- Module content (filled in by module-detail.js) -->
-      <main class="main-content" id="module-content" hidden>
-        <a href="courses.html" class="back-link" id="back-link"
+      <!-- Assignment content (filled in by assignment-detail.js) -->
+      <main class="main-content" id="assignment-content" hidden>
+        <a href="student-courses.html" class="back-link" id="back-link"
           >← Back to courses</a
         >
 
         <div class="page-intro">
           <div>
-            <p class="eyebrow" id="module-eyebrow">Module</p>
-            <h2 id="module-title">Module</h2>
-            <p id="module-description"></p>
+            <p class="eyebrow" id="assignment-eyebrow">Assignment</p>
+            <h2 id="assignment-title">Assignment</h2>
+            <p id="assignment-points">0 points</p>
+          </div>
+
+          <div class="due-card">
+            <i class="icon" data-lucide="clock"></i>
+            <div>
+              <strong id="due-text">Due —</strong>
+              <small id="late-text">Late submissions allowed</small>
+            </div>
           </div>
         </div>
 
-        <section class="panel">
-          <div class="panel-heading">
-            <div>
-              <h2>Module PDF</h2>
-              <p id="pdf-name">module.pdf</p>
-            </div>
-            <div class="actions">
-              <a
-                class="button secondary"
-                id="pdf-open"
-                href="#"
-                target="_blank"
-                rel="noopener"
-              >
-                <i class="icon" data-lucide="external-link"></i>
-                Open in new tab
-              </a>
-              <a class="button primary" id="pdf-download" href="#" download>
-                <i class="icon" data-lucide="download"></i>
-                Download
-              </a>
-            </div>
-          </div>
+        <div class="assignment-grid">
+          <section class="panel padded">
+            <h2>Instructions</h2>
+            <p id="instructions-text"></p>
 
-          <div class="padded">
-            <iframe
-              id="pdf-frame"
-              class="pdf-frame"
-              title="Module PDF"
-            ></iframe>
-            <p class="hint" style="margin-top: 12px">
-              If the PDF doesn't display here (some mobile browsers can't), use
-              "Open in new tab".
-            </p>
-          </div>
-        </section>
+            <div class="callout">
+              <h3>What to submit</h3>
+              <p>
+                Write your answer or paste a document link your teacher can
+                open. An optional file record helps identify your work.
+              </p>
+              <p>
+                Ungraded submissions can be replaced while submissions are open.
+                Late work is labeled for your teacher.
+              </p>
+            </div>
+          </section>
+
+          <section class="panel padded">
+            <h2>Your submission</h2>
+            <div id="submission-body"></div>
+          </section>
+        </div>
       </main>
 
       <!-- Not found state -->
       <main class="main-content" id="not-found" hidden>
         <div class="empty">
           <i class="icon" data-lucide="search-x"></i>
-          <h3>Module not found</h3>
-          <p>We couldn't find the module you're looking for.</p>
-          <a href="courses.html" class="button primary">Back to courses</a>
+          <h3>Assignment not found</h3>
+          <p>We couldn't find the assignment you're looking for.</p>
+          <a href="student-assessments.html" class="button primary"
+            >Back to assessments</a
+          >
         </div>
       </main>
     </div>
@@ -170,7 +171,7 @@
     <script src="assets/js/script.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="assets/js/courses-data.js"></script>
-    <script src="assets/js/modules-data.js"></script>
-    <script src="assets/js/module-detail.js"></script>
+    <script src="assets/js/assessment-data.js"></script>
+    <script src="assets/js/assignment-detail.js"></script>
   </body>
 </html>

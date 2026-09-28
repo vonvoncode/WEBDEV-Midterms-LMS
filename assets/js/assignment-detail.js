@@ -220,7 +220,7 @@
         document.title = `${assignment.name} · AscendOne`;
 
         const backLink = document.getElementById('back-link');
-        backLink.href = `course-detail.html?id=${encodeURIComponent(course.id)}`;
+        backLink.href = `student-course-detail.html?id=${encodeURIComponent(course.id)}`;
         backLink.textContent = `← Back to ${course.title}`;
 
         document.getElementById('assignment-eyebrow').textContent = `${course.code} · Assignment`;
