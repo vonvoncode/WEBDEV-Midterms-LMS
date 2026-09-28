@@ -86,7 +86,7 @@ function renderCourse(course) {
     document.getElementById("course-content").hidden = false;
 
     if (course) {
-        renderModules(course)
+        renderModules(course);
     }
 
     if (window.lucide) {
@@ -110,6 +110,7 @@ function init() {
 
     if (course) {
         renderCourse(course);
+        renderModules(course);
     } else {
         showNotFound();
     }
