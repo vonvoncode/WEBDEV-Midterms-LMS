@@ -150,6 +150,21 @@ function showToast(message) {
 
 window.showToast = showToast;
 
+/* Time-based greeting for the dashboard headings */
+function getGreeting(date = new Date()) {
+    const hour = date.getHours();
+
+    if (hour >= 5 && hour < 12) return 'Good morning';
+    if (hour >= 12 && hour < 18) return 'Good afternoon';
+    return 'Good evening';
+}
+
+const greetingEl = document.getElementById('greeting-text');
+
+if (greetingEl) {
+    greetingEl.textContent = getGreeting();
+}
+
 /* Display name: saved from a Settings page, applied to the sidebar on every page.
    Stored per account so the student and teacher names never mix in the same tab. */
 const DISPLAY_NAME_KEY = 'ascendone-display-name';
