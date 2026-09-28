@@ -1,5 +1,6 @@
 const COURSE_COLORS = ["purple", "blue", "orange", "pink", "teal", "indigo"];
 
+const ATTENDANCE_STORAGE_KEY = "ascendone-attendance";
 let currentCourseId = null;
 let pendingLessonModuleId = null;
 
@@ -258,33 +259,110 @@ function buildAssignmentRow(assignment) {
 }
 
 /* ---------- students ---------- */
+function getAttendanceData() {
+    try {
+        return JSON.parse(localStorage.getItem(ATTENDANCE_STORAGE_KEY)) || {};
+    } catch (error) {
+        return {};
+    }
+}
+
+function saveAttendanceData(data) {
+    localStorage.setItem(ATTENDANCE_STORAGE_KEY, JSON.stringify(data));
+}
+
+function getCourseAttendance(data, courseId) {
+    if (!data[courseId]) {
+        data[courseId] = { dates: [], records: {} };
+    }
+
+    return data[courseId];
+}
+
+function formatAttendanceDate(date) {
+    return new Date(`${date}T00:00:00`).toLocaleDateString(undefined, {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+    });
+}
+
 function renderStudents(course) {
     document.getElementById("students-count").textContent =
         `${course.students.length} student${course.students.length === 1 ? "" : "s"} enrolled`;
-    document.getElementById("go-to-grades-link").href = `teacher-grades.html?course=${course.id}`;
 
-    const body = document.getElementById("student-rows");
+    document.getElementById("go-to-grades-link").href =
+        `teacher-grades.html?course=${course.id}`;
+
+    const data = getAttendanceData();
+    const attendance = getCourseAttendance(data, course.id);
+    const head = document.getElementById("attendance-head");
+    const body = document.getElementById("attendance-rows");
+
+    head.innerHTML = "";
     body.innerHTML = "";
-    course.students.forEach((student) => body.appendChild(buildStudentRow(student)));
+
+    const headerRow = document.createElement("tr");
+    const studentHeader = document.createElement("th");
+    studentHeader.textContent = "Student";
+    headerRow.appendChild(studentHeader);
+
+    attendance.dates.forEach((date) => {
+        const dateHeader = document.createElement("th");
+        dateHeader.textContent = formatAttendanceDate(date);
+        headerRow.appendChild(dateHeader);
+    });
+
+    head.appendChild(headerRow);
+
+    course.students.forEach((student) => {
+        const row = document.createElement("tr");
+        const nameCell = document.createElement("td");
+
+        nameCell.textContent = student.name;
+        row.appendChild(nameCell);
+
+        attendance.dates.forEach((date) => {
+            const cell = document.createElement("td");
+            const button = document.createElement("button");
+            const status = attendance.records[date]?.[student.id] || "";
+
+            button.type = "button";
+            button.className = `attendance-tile ${status}`;
+            button.dataset.studentId = student.id;
+            button.dataset.date = date;
+            button.textContent = status
+                ? status[0].toUpperCase() + status.slice(1)
+                : "Unmarked";
+            button.setAttribute(
+                "aria-label",
+                `${student.name}, ${formatAttendanceDate(date)}: ${button.textContent}`
+            );
+
+            cell.appendChild(button);
+            row.appendChild(cell);
+        });
+
+        body.appendChild(row);
+    });
+
+    const selectedDate = document.getElementById("attendance-date").value;
+    const selectedRecords = attendance.records[selectedDate] || {};
+    const presentCount = Object.values(selectedRecords).filter(
+        (status) => status === "present"
+    ).length;
+    const absentCount = Object.values(selectedRecords).filter(
+        (status) => status === "absent"
+    ).length;
+    const unmarkedCount = course.students.length - presentCount - absentCount;
+
+    document.getElementById("attendance-summary").textContent = selectedDate
+        ? `${presentCount} present · ${absentCount} absent · ${unmarkedCount} unmarked`
+        : "Choose a date and click Add date to start taking attendance.";
 
     if (window.lucide) {
         lucide.createIcons();
     }
-}
-
-function buildStudentRow(student) {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-    <td>
-      <div class="roster-name">
-        <span class="avatar">${teacherInitials(student.name)}</span>
-        <span class="table-link">${student.name}</span>
-      </div>
-    </td>
-    <td>${student.email}</td>
-    <td><span class="badge good">Active</span></td>
-  `;
-    return tr;
 }
 
 /* ---------- new assignment: type toggle + quiz builder ---------- */
@@ -339,6 +417,70 @@ function init() {
 
     document.querySelectorAll(".course-tabs button").forEach((btn) => {
         btn.addEventListener("click", () => switchTab(btn.dataset.tab));
+    });
+
+    const attendanceDateInput = document.getElementById("attendance-date");
+
+    function getTodayDate() {
+        const today = new Date();
+        const timezoneOffset = today.getTimezoneOffset() * 60000;
+        return new Date(today.getTime() - timezoneOffset)
+            .toISOString()
+            .slice(0, 10);
+    }
+
+    attendanceDateInput.value = getTodayDate();
+
+    document.getElementById("add-attendance-date").addEventListener("click", () => {
+        const date = attendanceDateInput.value;
+        const course = getCourseById(currentCourseId);
+
+        if (!course || !date) return;
+
+        const data = getAttendanceData();
+        const attendance = getCourseAttendance(data, course.id);
+
+        if (!attendance.dates.includes(date)) {
+            attendance.dates.push(date);
+            attendance.dates.sort();
+            saveAttendanceData(data);
+        }
+
+        renderStudents(course);
+    });
+
+    document.getElementById("attendance-rows").addEventListener("click", (event) => {
+        const button = event.target.closest(".attendance-tile");
+        if (!button) return;
+
+        const course = getCourseById(currentCourseId);
+        if (!course) return;
+
+        const data = getAttendanceData();
+        const attendance = getCourseAttendance(data, course.id);
+        const { date, studentId } = button.dataset;
+
+        if (!attendance.records[date]) {
+            attendance.records[date] = {};
+        }
+
+        const currentStatus = attendance.records[date][studentId];
+
+        if (!currentStatus) {
+            attendance.records[date][studentId] = "present";
+        } else if (currentStatus === "present") {
+            attendance.records[date][studentId] = "absent";
+        } else {
+            delete attendance.records[date][studentId];
+        }
+
+        saveAttendanceData(data);
+        renderStudents(course);
+    });
+
+    attendanceDateInput.addEventListener("change", () => {
+        const course = getCourseById(currentCourseId);
+        if (course) renderStudents(course);
     });
 
     document.getElementById("course-search").addEventListener("input", (event) => {

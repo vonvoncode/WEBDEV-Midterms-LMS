@@ -2163,6 +2163,49 @@ legend {
   font-size: 11px;
 }
 
+  .attendance-controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .attendance-controls input {
+    padding: 10px;
+    border: 1px solid #d8d5e2;
+    border-radius: 8px;
+    font: inherit;
+  }
+
+  #attendance-summary {
+    flex-basis: 100%;
+    margin: 0;
+  }
+
+  .attendance-tile {
+    min-width: 100px;
+    padding: 8px 12px;
+    border: 1px solid #d8d5e2;
+    border-radius: 8px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+  }
+
+  .attendance-tile.present {
+    border-color: #23865b;
+    background: #e8f6ee;
+    color: #17613f;
+  }
+
+  .attendance-tile.absent {
+    border-color: #c94c4c;
+    background: #fff0f0;
+    color: #9b3030;
+  }
+
 /* Responsive behavior */
 @media (max-width: 1250px) {
   .course-grid {
