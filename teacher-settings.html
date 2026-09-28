@@ -1,151 +1,172 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#7056ff" />
-    <title>Settings · AscendOne for Teachers</title>
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="assets/css/style.css" />
-  </head>
-  <body>
-    <div class="app-shell">
-      <!-- Sidebar -->
-      <aside class="sidebar" id="sidebar">
-        <a href="teacher-dashboard.html" class="brand" aria-label="AscendOne home">
-          <span class="brand-symbol">
-            <i class="icon" data-lucide="book-open"></i>
-          </span>
-          AscendOne
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#7056ff" />
+  <title>Settings · AscendOne for Teachers</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body>
+  <div class="app-shell">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <a href="teacher-dashboard.html" class="brand" aria-label="AscendOne home">
+        <span class="brand-symbol">
+          <i class="icon" data-lucide="book-open"></i>
+        </span>
+        AscendOne
+      </a>
+      <p class="tagline">reach the top as one</p>
+
+      <p class="nav-label">Teacher workspace</p>
+      <nav>
+        <a href="teacher-dashboard.html">
+          <i class="icon" data-lucide="layout-dashboard"></i>
+          Dashboard
         </a>
-        <p class="tagline">reach the top as one</p>
+        <a href="teacher-courses.html">
+          <i class="icon" data-lucide="book-open"></i>
+          My Courses
+        </a>
+        <a href="teacher-grades.html">
+          <i class="icon" data-lucide="graduation-cap"></i>
+          Grades
+        </a>
+        <a href="teacher-announcements.html">
+          <i class="icon" data-lucide="megaphone"></i>
+          Announcements
+        </a>
+      </nav>
 
-        <p class="nav-label">Teacher workspace</p>
-        <nav>
-          <a href="teacher-dashboard.html">
-            <i class="icon" data-lucide="layout-dashboard"></i>
-            Dashboard
-          </a>
-          <a href="teacher-courses.html">
-            <i class="icon" data-lucide="book-open"></i>
-            My Courses
-          </a>
-          <a href="teacher-grades.html">
-            <i class="icon" data-lucide="graduation-cap"></i>
-            Grades
-          </a>
-          <a href="teacher-announcements.html">
-            <i class="icon" data-lucide="megaphone"></i>
-            Announcements
-          </a>
-        </nav>
+      <div class="sidebar-bottom">
+        <a href="teacher-settings.html" class="settings-link" aria-current="page">
+          <i class="icon" data-lucide="settings"></i>
+          Settings
+        </a>
 
-        <div class="sidebar-bottom">
-          <a href="teacher-settings.html" class="settings-link" aria-current="page">
-            <i class="icon" data-lucide="settings"></i>
-            Settings
-          </a>
-
-          <div class="user-card">
-            <span class="avatar" id="sidebar-avatar">NR</span>
-            <div>
-              <strong id="sidebar-name">Nimrod Reyes Sajise</strong>
-              <small>Faculty Account</small>
-            </div>
-          </div>
-
-          <button class="logout" id="logout">
-            <i class="icon" data-lucide="log-out"></i>
-            Log out
-          </button>
-        </div>
-      </aside>
-
-      <button id="nav-overlay" aria-label="Close menu"></button>
-
-      <!-- Topbar -->
-      <header class="topbar">
-        <div class="topbar-title">
-          <button
-            class="icon-button mobile-menu"
-            aria-label="Open menu"
-            aria-controls="sidebar"
-          >
-            <i class="icon" data-lucide="menu"></i>
-          </button>
+        <div class="user-card">
+          <span class="avatar" id="sidebar-avatar">NR</span>
           <div>
-            <h1>Settings</h1>
-            <p>First semester · 2026</p>
+            <strong id="sidebar-name">Nimrod Reyes Sajise</strong>
+            <small>Faculty Account</small>
           </div>
         </div>
 
-        <div class="top-actions">
-          <span class="role-chip">Teacher</span>
-          <button
-            class="icon-button"
-            id="theme-toggle"
-            aria-label="Toggle dark mode"
-          >
-            <i class="icon" data-lucide="moon"></i>
-          </button>
-          <button
-            class="icon-button notification-button"
-            aria-label="Notifications"
-          >
-            <i class="icon" data-lucide="bell"></i>
-            <span class="notification-count">5</span>
-          </button>
-        </div>
-      </header>
+        <button class="logout" id="logout">
+          <i class="icon" data-lucide="log-out"></i>
+          Log out
+        </button>
+      </div>
+    </aside>
 
-      <!-- Main content -->
-      <main class="main-content">
-        <p class="eyebrow">Your account</p>
-        <div class="page-intro">
+    <button id="nav-overlay" aria-label="Close menu"></button>
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-title">
+        <button class="icon-button mobile-menu" aria-label="Open menu" aria-controls="sidebar">
+          <i class="icon" data-lucide="menu"></i>
+        </button>
+        <div>
+          <h1>Settings</h1>
+          <p>First semester · 2026</p>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <span class="role-chip">Teacher</span>
+        <button class="icon-button" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="icon" data-lucide="moon"></i>
+        </button>
+        <button class="icon-button notification-button" aria-label="Notifications">
+          <i class="icon" data-lucide="bell"></i>
+          <span class="notification-count">5</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="main-content">
+      <p class="eyebrow">Your account</p>
+      <div class="page-intro">
+        <div>
+          <h2>Profile &amp; settings</h2>
+          <p>Manage how you appear to your students.</p>
+        </div>
+      </div>
+
+      <!-- Profile card -->
+      <section class="panel profile-card">
+        <span class="avatar large" id="profile-avatar">NR</span>
+        <div>
+          <h2 id="profile-name">Nimrod Reyes Sajise</h2>
+          <p>Faculty · Information Technology Department</p>
+          <p class="hint">Teacher · @teacher</p>
+        </div>
+        <button class="button secondary" id="edit-profile-btn" type="button">
+          Edit profile
+        </button>
+      </section>
+
+      <!-- Preferences -->
+      <section class="panel padded section-space">
+        <h2>Preferences</h2>
+
+        <div class="setting-row">
           <div>
-            <h2>Profile & Settings</h2>
-            <p>Manage how your name and profile appear across AscendOne.</p>
+            <h3>Appearance</h3>
+            <p>Choose a comfortable theme for this session.</p>
           </div>
+          <button class="button secondary" id="appearance-btn" type="button">
+            Use dark theme
+          </button>
         </div>
+      </section>
+    </main>
+  </div>
 
-        <section class="panel profile-card" style="margin-bottom: 24px">
-          <span class="avatar large" id="profile-avatar">NR</span>
-          <div>
-            <h2 id="profile-name">Nimrod Reyes Sajise</h2>
-            <p id="profile-role">Faculty · Information Technology Department</p>
-          </div>
-        </section>
+  <!-- Edit profile dialog (logic lives in teacher-settings.js) -->
+  <dialog id="profile-modal" aria-labelledby="profile-modal-title">
+    <form id="profile-form" novalidate>
+      <div class="dialog-head">
+        <h2 id="profile-modal-title">Edit profile</h2>
+        <button class="icon-button" id="profile-modal-close" type="button" aria-label="Close">
+          <i class="icon" data-lucide="x"></i>
+        </button>
+      </div>
 
-        <section class="panel padded">
-          <h2>Profile</h2>
+      <div class="dialog-content">
+        <div class="field">
+          <label for="display-name">Display name</label>
+          <input type="text" id="display-name" name="display-name" maxlength="50" autocomplete="name" required />
+          <small>Your username, role, and department remain assigned by the
+            demo accounts.</small>
+        </div>
+        <p class="form-error" id="profile-error" role="alert"></p>
+      </div>
 
-          <div class="setting-row">
-            <div>
-              <strong>Display name</strong>
-              <p>This is the name students see on your courses and announcements.</p>
-            </div>
-          </div>
+      <div class="dialog-actions">
+        <button class="button secondary" id="profile-cancel" type="button">
+          Cancel
+        </button>
+        <button class="button primary" type="submit">Save changes</button>
+      </div>
+    </form>
+  </dialog>
 
-          <form id="profile-form">
-            <div class="field">
-              <label for="display-name">Display name</label>
-              <input type="text" id="display-name" required />
-            </div>
-            <div class="form-error" id="profile-form-error"></div>
-            <button class="button primary" type="submit">Save changes</button>
-          </form>
-        </section>
-      </main>
-    </div>
+  <div id="toast" role="status"></div>
 
-    <div id="toast" role="status"></div>
+  <script src="assets/js/script.js"></script>
+  <script src="assets/js/teacher-data.js"></script>
+  <script src="assets/js/teacher-settings.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
 
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/teacher-data.js"></script>
-    <script src="assets/js/teacher-settings.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-      lucide.createIcons();
-    </script>
-  </body>
 </html>
