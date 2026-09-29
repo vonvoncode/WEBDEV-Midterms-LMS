@@ -16,8 +16,6 @@
         return Number.isNaN(time) ? Infinity : time;
     }
 
-    /* ---------- To-do ---------- */
-
     function renderTodo() {
         const tbody = document.getElementById('todo-rows');
         if (!tbody) return;
@@ -55,8 +53,6 @@
             .join('');
     }
 
-    /* ---------- Course modules (last viewed) ---------- */
-
     function pickModules() {
         const recent = getRecentModuleIds()
             .map((id) => MODULES.find((m) => m.id === id))
@@ -67,7 +63,6 @@
             return { modules: recent, hasHistory: true };
         }
 
-        // Nothing opened yet in this tab: suggest the first module of the first few courses
         const suggestions = COURSES.slice(0, RECENT_MODULES_LIMIT)
             .map((course) => MODULES.find((m) => m.courseId === course.id))
             .filter(Boolean);

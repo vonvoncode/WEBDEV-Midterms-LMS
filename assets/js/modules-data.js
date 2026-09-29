@@ -175,8 +175,6 @@ MODULES.forEach((module) => {
     }));
 });
 
-/* ---------- Recently viewed modules (per tab, like the rest of the demo) ---------- */
-
 const RECENT_MODULES_KEY = "ascendone-recent-modules";
 const RECENT_MODULES_LIMIT = 3;
 
@@ -199,6 +197,6 @@ function recordRecentModule(id) {
     try {
         sessionStorage.setItem(RECENT_MODULES_KEY, JSON.stringify(updated));
     } catch (e) {
-        /* storage unavailable: the dashboard just falls back to suggestions */
+
     }
 }

@@ -132,7 +132,6 @@ if (themeToggleButton) {
     });
 }
 
-/* Shared toast helper, used by page-specific scripts to confirm an action */
 let toastTimer = null;
 
 function showToast(message) {
@@ -168,7 +167,6 @@ if (def_date) {
     def_date.textContent = setDateToday();
 }
 
-/* Time-based greeting for the dashboard headings */
 function getGreeting(date = new Date()) {
     const hour = date.getHours();
 
@@ -240,10 +238,9 @@ function saveDisplayName(name) {
     try {
         sessionStorage.setItem(displayNameKey(), name);
     } catch (e) {
-        /* storage unavailable: the name still updates for this page view */
+
     }
     applyDisplayName(name);
 }
 
-// Runs on every page that loads this script
 applyDisplayName(getSavedDisplayName());
