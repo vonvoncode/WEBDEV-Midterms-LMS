@@ -28,26 +28,100 @@ function buildAssignmentRow(assignment, courseTitle) {
 }
 
 function renderModules(course) {
-    const modules = MODULES.filter((m) => m.courseId === course.id);
-    const list = document.getElementById('module-list');
+    const modules = MODULES.filter((module) => module.courseId === course.id);
+    const list = document.getElementById("module-list");
 
-    document.getElementById('module-count').textContent =
-        `${modules.length} ${modules.length === 1 ? 'module' : 'modules'} to read`;
+    document.getElementById("module-count").textContent =
+        `${modules.length} ${modules.length === 1 ? "module" : "modules"} to read`;
+
+    list.innerHTML = "";
 
     if (modules.length === 0) {
-        list.innerHTML = '<p class="muted" style="padding:20px 0;">No modules have been posted for this course yet.</p>';
+        list.innerHTML =
+            '<p class="muted" style="padding:20px 0;">No modules have been posted for this course yet.</p>';
         return;
     }
 
-    list.innerHTML = modules.map((m) => `
-    <a href="student-module-detail.html?id=${m.id}">
-      <span class="activity-icon"><i class="icon" data-lucide="file-text"></i></span>
-      <div>
-        <strong>Module ${m.number} · ${m.title}</strong>
-        <small>${m.description}</small>
-      </div>
-      <i class="icon" data-lucide="chevron-right"></i>
-    </a>`).join('');
+    modules.forEach((module, index) => {
+        const item = document.createElement("div");
+        item.className = "module-item";
+
+        const header = document.createElement("button");
+        header.type = "button";
+        header.className = "module-header";
+        header.setAttribute("aria-expanded", "false");
+
+        const number = document.createElement("span");
+        number.className = "module-index";
+        number.textContent = index + 1;
+
+        const heading = document.createElement("span");
+        heading.className = "module-header-text";
+
+        const title = document.createElement("h3");
+        title.textContent = module.title;
+
+        const count = document.createElement("small");
+        count.textContent =
+            `${module.lessons.length} lesson${module.lessons.length === 1 ? "" : "s"}`;
+
+        heading.append(title, count);
+
+        const chevron = document.createElement("i");
+        chevron.className = "icon chevron";
+        chevron.dataset.lucide = "chevron-down";
+
+        header.append(number, heading, chevron);
+        header.addEventListener("click", () => {
+            item.classList.toggle("open");
+            header.setAttribute(
+                "aria-expanded",
+                item.classList.contains("open") ? "true" : "false"
+            );
+        });
+
+        const body = document.createElement("div");
+        body.className = "module-body";
+
+        const lessonList = document.createElement("div");
+        lessonList.className = "lesson-list";
+
+        module.lessons.forEach((lesson) => {
+            const isPdfReading = lesson.type === "reading" && lesson.pdf;
+            const row = document.createElement(isPdfReading ? "a" : "div");
+            row.className = "lesson-row";
+
+            if (isPdfReading) {
+                row.href =
+                    `student-module-detail.html?id=${encodeURIComponent(module.id)}` +
+                    `&lesson=${encodeURIComponent(lesson.id)}`;
+            }
+
+            const icon = document.createElement("i");
+            icon.className = "icon";
+            icon.dataset.lucide =
+                lesson.type === "video" ? "play-circle" :
+                lesson.type === "link" ? "link" : "file-text";
+
+            const lessonTitle = document.createElement("strong");
+            lessonTitle.textContent = lesson.title;
+
+            const type = document.createElement("span");
+            type.className = "lesson-type";
+            type.textContent = lesson.type;
+
+            row.append(icon, lessonTitle, type);
+            lessonList.appendChild(row);
+        });
+
+        body.appendChild(lessonList);
+        item.append(header, body);
+        list.appendChild(item);
+    });
+
+    if (window.lucide) {
+        lucide.createIcons();
+    }
 }
 
 function renderCourse(course) {

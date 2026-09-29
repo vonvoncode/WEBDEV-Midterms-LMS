@@ -120,6 +120,61 @@ const MODULES = [
     }
 ];
 
+const LESSONS_BY_MODULE = {
+    "IT315-M1": [
+        { title: "Principles of visual hierarchy", type: "reading" },
+        { title: "Walkthrough: heuristic evaluation", type: "video" },
+    ],
+    "IT315-M2": [
+        { title: "Low-fidelity vs high-fidelity prototypes", type: "reading" },
+        { title: "Figma component libraries", type: "link" },
+    ],
+    "CS241-M1": [
+        { title: "Arrays, stacks, and queues", type: "reading" },
+        { title: "Linked list traversal", type: "video" },
+    ],
+    "CS241-M2": [
+        { title: "Sorting and Searching", type: "reading" },
+    ],
+    "IT332-M1": [
+        { title: "Network Models and Addressing", type: "reading" },
+        { title: "IPv4 subnetting walkthrough", type: "video" },
+    ],
+    "IT332-M2": [
+        { title: "Routing and Switching Essentials", type: "reading" },
+    ],
+    "GE201-M1": [
+        { title: "Choosing a research problem", type: "reading" },
+    ],
+    "GE201-M2": [
+        { title: "Research Methods and Ethics", type: "reading" },
+    ],
+    "IT320-M1": [
+        { title: "Flexbox & grid in practice", type: "reading" },
+        { title: "Media query breakpoints", type: "link" },
+    ],
+    "IT320-M2": [
+        { title: "Responsive Layouts with CSS", type: "reading" },
+    ],
+    "IT324-M1": [
+        { title: "Entity relationship diagrams", type: "reading" },
+    ],
+    "IT324-M2": [
+        { title: "SQL Queries and Normalization", type: "reading" },
+    ],
+};
+
+MODULES.forEach((module) => {
+    module.lessons = (LESSONS_BY_MODULE[module.id] || []).map((lesson, index) => ({
+        id: `${module.id}-L${index + 1}`,
+        title: lesson.title,
+        type: lesson.type,
+        ...(index === 0 && lesson.type === "reading"
+            ? { pdf: module.pdf }
+            : {}),
+    }));
+});
+
 /* ---------- Recently viewed modules (per tab, like the rest of the demo) ---------- */
 
 const RECENT_MODULES_KEY = "ascendone-recent-modules";

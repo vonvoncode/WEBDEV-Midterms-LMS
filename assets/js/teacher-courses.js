@@ -4,6 +4,32 @@ const ATTENDANCE_STORAGE_KEY = "ascendone-attendance";
 let currentCourseId = null;
 let pendingLessonModuleId = null;
 
+const TEACHER_MODULES_KEY = "ascendone-teacher-modules-session";
+
+function readTeacherModuleStore() {
+    try {
+        return JSON.parse(sessionStorage.getItem(TEACHER_MODULES_KEY)) || {};
+    } catch (error) {
+        return {};
+    }
+}
+
+function saveTeacherModules(course) {
+    const store = readTeacherModuleStore();
+    store[course.id] = course.modules;
+    sessionStorage.setItem(TEACHER_MODULES_KEY, JSON.stringify(store));
+}
+
+function loadTeacherModules() {
+    const store = readTeacherModuleStore();
+
+    TEACHER_COURSES.forEach((course) => {
+        if (Array.isArray(store[course.id])) {
+            course.modules = store[course.id];
+        }
+    });
+}
+
 /* ---------- dialog helpers ---------- */
 function openDialog(id) {
     document.getElementById(id).showModal();
@@ -149,7 +175,9 @@ function renderModules(course) {
         return;
     }
 
-    course.modules.forEach((mod, index) => list.appendChild(buildModuleItem(mod, index)));
+    course.modules.forEach((mod, index) =>
+    list.appendChild(buildModuleItem(course, mod, index))
+);
 
     if (window.lucide) {
         lucide.createIcons();
@@ -162,18 +190,30 @@ function lessonIcon(type) {
     return "file-text";
 }
 
-function buildLessonRow(lesson) {
-    const row = document.createElement("div");
+function buildLessonRow(course, module, lesson) {
+    const row = document.createElement("a");
     row.className = "lesson-row";
-    row.innerHTML = `
-    <i class="icon" data-lucide="${lessonIcon(lesson.type)}"></i>
-    <strong>${lesson.title}</strong>
-    <span class="lesson-type">${lesson.type}</span>
-  `;
+    row.href =
+        `teacher-lesson-editor.html?course=${encodeURIComponent(course.id)}` +
+        `&module=${encodeURIComponent(module.id)}` +
+        `&lesson=${encodeURIComponent(lesson.id)}`;
+
+    const icon = document.createElement("i");
+    icon.className = "icon";
+    icon.dataset.lucide = lessonIcon(lesson.type);
+
+    const title = document.createElement("strong");
+    title.textContent = lesson.title;
+
+    const type = document.createElement("span");
+    type.className = "lesson-type";
+    type.textContent = lesson.type;
+
+    row.append(icon, title, type);
     return row;
 }
 
-function buildModuleItem(mod, index) {
+function buildModuleItem(course, mod, index) {
     const wrap = document.createElement("div");
     wrap.className = "module-item";
     wrap.dataset.moduleId = mod.id;
@@ -203,7 +243,9 @@ function buildModuleItem(mod, index) {
         emptyLesson.textContent = "No lessons in this module yet.";
         lessonList.appendChild(emptyLesson);
     } else {
-        mod.lessons.forEach((lesson) => lessonList.appendChild(buildLessonRow(lesson)));
+        mod.lessons.forEach((lesson) =>
+            lessonList.appendChild(buildLessonRow(course, mod, lesson))
+        );
     }
 
     const addLessonBtn = document.createElement("button");
@@ -408,6 +450,8 @@ function formatDueDate(datetimeLocalValue) {
 
 /* ---------- init & event wiring ---------- */
 function init() {
+    loadTeacherModules();
+
     document.getElementById("sidebar-name").textContent = getTeacherDisplayName();
     document.getElementById("sidebar-avatar").textContent = teacherInitials(getTeacherDisplayName());
 
@@ -560,6 +604,8 @@ function init() {
             lessons: [],
         });
 
+        saveTeacherModules(course);
+
         event.target.reset();
         closeDialog("add-module-dialog");
         renderModules(course);
@@ -582,6 +628,7 @@ function init() {
         const mod = course.modules.find((m) => m.id === pendingLessonModuleId);
         if (mod) {
             mod.lessons.push({ id: `L-${Date.now()}`, title, type });
+            saveTeacherModules(course);
         }
 
         event.target.reset();

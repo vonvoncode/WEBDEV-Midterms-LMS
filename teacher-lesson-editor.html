@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Edit lesson · AscendOne</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body>
+    <div class="app-shell">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <a href="teacher-dashboard.html" class="brand" aria-label="AscendOne home">
+                <span class="brand-symbol">
+                    <i class="icon" data-lucide="book-open"></i>
+                </span>
+                AscendOne
+            </a>
+            <p class="tagline">reach the top as one</p>
+
+            <p class="nav-label">Teacher workspace</p>
+            <nav>
+                <a href="teacher-dashboard.html">
+                    <i class="icon" data-lucide="layout-dashboard"></i>
+                    Dashboard
+                </a>
+                <a href="teacher-courses.html" class="active">
+                    <i class="icon" data-lucide="book-open"></i>
+                    My Courses
+                </a>
+                <a href="teacher-grades.html">
+                    <i class="icon" data-lucide="graduation-cap"></i>
+                    Grades
+                </a>
+                <a href="teacher-announcements.html">
+                    <i class="icon" data-lucide="megaphone"></i>
+                    Announcements
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <a href="teacher-settings.html" class="settings-link">
+                    <i class="icon" data-lucide="settings"></i>
+                    Settings
+                </a>
+
+                <div class="user-card">
+                    <span class="avatar" id="sidebar-avatar">NR</span>
+                    <div>
+                        <strong id="sidebar-name">Nimrod Reyes Sajise</strong>
+                        <small>Faculty Account</small>
+                    </div>
+                </div>
+
+                <button class="logout" id="logout">
+                    <i class="icon" data-lucide="log-out"></i>
+                    Log out
+                </button>
+            </div>
+        </aside>
+
+        <button id="nav-overlay" aria-label="Close menu"></button>
+
+        <!-- Topbar -->
+        <header class="topbar">
+            <div class="topbar-title">
+                <button class="icon-button mobile-menu" aria-label="Open menu" aria-controls="sidebar">
+                    <i class="icon" data-lucide="menu"></i>
+                </button>
+                <div>
+                    <h1 id="topbar-title">Edit Lesson</h1>
+                    <p>First semester · 2026</p>
+                </div>
+            </div>
+
+            <div class="top-actions">
+                <span class="role-chip">Teacher</span>
+                <button class="icon-button" id="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="icon" data-lucide="moon"></i>
+                </button>
+                <button class="icon-button notification-button" aria-label="Notifications">
+                    <i class="icon" data-lucide="bell"></i>
+                    <span class="notification-count">5</span>
+                </button>
+            </div>
+        </header>
+        <main class="main-content">
+            <a class="back-link" id="back-to-course" href="teacher-courses.html">
+                ← Back to course
+            </a>
+
+            <div class="page-intro">
+                <div>
+                    <p class="eyebrow">Teacher workspace · Lesson editor</p>
+                    <h1 id="editor-heading">Edit lesson</h1>
+                    <p>Update the lesson details or preview a PDF file.</p>
+                </div>
+            </div>
+
+            <section class="panel padded">
+                <form id="lesson-editor-form">
+                    <div class="field">
+                        <label for="editor-title">Lesson title</label>
+                        <input id="editor-title" type="text" required maxlength="100" />
+                    </div>
+
+                    <div class="field">
+                        <label for="editor-type">Lesson type</label>
+                        <select id="editor-type">
+                            <option value="reading">Reading</option>
+                            <option value="video">Video</option>
+                            <option value="link">Link / resource</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="editor-content">Lesson content or notes</label>
+                        <textarea id="editor-content" rows="5"
+                            placeholder="Add lesson instructions or notes"></textarea>
+                    </div>
+
+                    <div class="field">
+                        <label for="editor-pdf">Choose a PDF to preview</label>
+                        <input id="editor-pdf" type="file" accept="application/pdf" />
+                        <small class="hint">
+                            Demo preview only. The selected file is not saved or shared with students.
+                        </small>
+                    </div>
+
+                    <section id="pdf-preview-panel" class="panel padded" hidden>
+                        <h2 id="pdf-preview-name">PDF preview</h2>
+                        <iframe id="pdf-preview" class="pdf-frame" title="PDF preview"></iframe>
+                    </section>
+
+                    <div class="dialog-actions">
+                        <a class="button secondary" id="cancel-edit" href="teacher-courses.html">
+                            Cancel
+                        </a>
+                        <button class="button primary" type="submit">Save lesson</button>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+    <div id="toast" role="status"></div>
+
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/teacher-data.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="assets/js/teacher-lesson-editor.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

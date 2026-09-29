@@ -2053,6 +2053,11 @@ legend {
   font-weight: 600;
 }
 
+#module-list a.lesson-row {
+  color: inherit;
+  text-decoration: none;
+}
+
 .lesson-type {
   margin-left: auto;
   flex-shrink: 0;

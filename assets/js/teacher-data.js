@@ -41,7 +41,7 @@ const TEACHER_COURSES = [
         modules: [
             {
                 id: "IT315-M1",
-                title: "Foundations of interface design",
+                title: "Foundations of Interface Design",
                 lessons: [
                     { id: "L1", title: "Principles of visual hierarchy", type: "reading" },
                     { id: "L2", title: "Walkthrough: heuristic evaluation", type: "video" },
@@ -49,7 +49,7 @@ const TEACHER_COURSES = [
             },
             {
                 id: "IT315-M2",
-                title: "Prototyping & usability testing",
+                title: "Accessibility and Usability Basics",
                 lessons: [
                     { id: "L3", title: "Low-fidelity vs high-fidelity prototypes", type: "reading" },
                     { id: "L4", title: "Figma component libraries", type: "link" },
@@ -92,10 +92,22 @@ const TEACHER_COURSES = [
         modules: [
             {
                 id: "CS241-M1",
-                title: "Linear structures",
+                title: "Arrays, Lists, and Complexity",
                 lessons: [
                     { id: "L1", title: "Arrays, stacks, and queues", type: "reading" },
                     { id: "L2", title: "Linked list traversal", type: "video" },
+                ],
+            },
+            {
+                id: "CS241-M2",
+                title: "Sorting and Searching",
+                lessons: [
+                    {
+                        id: "L1",
+                        title: "Sorting and Searching",
+                        type: "reading",
+                        pdf: "materials/CS241-M2.pdf",
+                    },
                 ],
             },
         ],
@@ -140,9 +152,22 @@ const TEACHER_COURSES = [
         modules: [
             {
                 id: "IT332-M1",
-                title: "Addressing & subnetting",
+                title: "Network Models and Addressing",
                 lessons: [
+                    { id: "L0", title: "Network Models and Addressing", type: "reading" },
                     { id: "L1", title: "IPv4 subnetting walkthrough", type: "video" },
+                ],
+            },
+            {
+                id: "IT332-M2",
+                title: "Routing and Switching Essentials",
+                lessons: [
+                    {
+                        id: "L1",
+                        title: "Routing and Switching Essentials",
+                        type: "reading",
+                        pdf: "materials/IT332-M2.pdf",
+                    },
                 ],
             },
         ],
@@ -173,9 +198,21 @@ const TEACHER_COURSES = [
         modules: [
             {
                 id: "GE201-M1",
-                title: "Framing a research question",
+                title: "Forming a Research Question",
                 lessons: [
                     { id: "L1", title: "Choosing a research problem", type: "reading" },
+                ],
+            },
+            {
+                id: "GE201-M2",
+                title: "Research Methods and Ethics",
+                lessons: [
+                    {
+                        id: "L1",
+                        title: "Research Methods and Ethics",
+                        type: "reading",
+                        pdf: "materials/GE201-M2.pdf",
+                    },
                 ],
             },
         ],
@@ -205,10 +242,22 @@ const TEACHER_COURSES = [
         modules: [
             {
                 id: "IT320-M1",
-                title: "Responsive layout",
+                title: "HTML and Semantic Structure",
                 lessons: [
                     { id: "L1", title: "Flexbox & grid in practice", type: "reading" },
                     { id: "L2", title: "Media query breakpoints", type: "link" },
+                ],
+            },
+            {
+                id: "IT320-M2",
+                title: "Responsive Layouts with CSS",
+                lessons: [
+                    {
+                        id: "L1",
+                        title: "Responsive Layouts with CSS",
+                        type: "reading",
+                        pdf: "materials/IT320-M2.pdf",
+                    },
                 ],
             },
         ],
@@ -238,9 +287,21 @@ const TEACHER_COURSES = [
         modules: [
             {
                 id: "IT324-M1",
-                title: "Relational modeling",
+                title: "Relational Model and ER Diagrams",
                 lessons: [
                     { id: "L1", title: "Entity relationship diagrams", type: "reading" },
+                ],
+            },
+            {
+                id: "IT324-M2",
+                title: "SQL Queries and Normalization",
+                lessons: [
+                    {
+                        id: "L1",
+                        title: "SQL Queries and Normalization",
+                        type: "reading",
+                        pdf: "materials/IT324-M2.pdf",
+                    },
                 ],
             },
         ],
