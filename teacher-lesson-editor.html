@@ -122,6 +122,23 @@
                             placeholder="Add lesson instructions or notes"></textarea>
                     </div>
 
+                    <div id="current-pdf-section" class="field" hidden>
+                        <label>Current PDF attached to this lesson</label>
+                        <p id="current-pdf-name"></p>
+
+                        <div class="actions">
+                            <a class="button secondary" id="current-pdf-open" href="#" target="_blank" rel="noopener">
+                                Open current PDF
+                            </a>
+
+                            <button class="button danger-button remove-pdf-button" id="remove-current-pdf" type="button">
+                                Remove PDF
+                            </button>
+                        </div>
+
+                        <iframe id="current-pdf-frame" class="pdf-frame" title="Currently attached lesson PDF"></iframe>
+                    </div>
+
                     <div class="field">
                         <label for="editor-pdf">Choose a PDF to preview</label>
                         <input id="editor-pdf" type="file" accept="application/pdf" />
@@ -144,11 +161,32 @@
                 </form>
             </section>
         </main>
+
+        <dialog id="remove-pdf-dialog">
+            <div class="dialog-head">
+                <h2>Remove current PDF?</h2>
+            </div>
+
+            <div class="dialog-content">
+                <p>This removes the current PDF attachment from this lesson.</p>
+            </div>
+
+            <div class="dialog-actions">
+                <button class="button secondary" id="cancel-remove-pdf" type="button">
+                    Cancel
+                </button>
+                <button class="button danger-button" id="confirm-remove-pdf" type="button">
+                    Remove PDF
+                </button>
+            </div>
+        </dialog>
+
     </div>
     <div id="toast" role="status"></div>
 
     <script src="assets/js/script.js"></script>
     <script src="assets/js/teacher-data.js"></script>
+    <script src="assets/js/modules-data.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="assets/js/teacher-lesson-editor.js"></script>
     <script>

@@ -27,6 +27,50 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
+    const studentModule = MODULES.find((item) => item.id === moduleId);
+    const readingWithPdf = studentModule?.lessons?.find(
+        (item) => item.type === "reading" && item.pdf
+    );
+
+    const currentPdfPath = lesson.pdfRemoved
+        ? ""
+        : lesson.pdf ||
+        (lesson.type === "reading" ? readingWithPdf?.pdf : "") ||
+        "";
+
+    if (currentPdfPath) {
+        const currentPdfSection = document.getElementById("current-pdf-section");
+        const fileName = currentPdfPath.split("/").pop();
+
+        document.getElementById("current-pdf-name").textContent = fileName;
+        document.getElementById("current-pdf-open").href = currentPdfPath;
+        document.getElementById("current-pdf-frame").src =
+            `${currentPdfPath}#view=FitH`;
+        currentPdfSection.hidden = false;
+
+        const removePdfDialog = document.getElementById("remove-pdf-dialog");
+
+        document.getElementById("remove-current-pdf").addEventListener("click", () => {
+            removePdfDialog.showModal();
+        });
+
+        document.getElementById("cancel-remove-pdf").addEventListener("click", () => {
+            removePdfDialog.close();
+        });
+
+        document.getElementById("confirm-remove-pdf").addEventListener("click", () => {
+            lesson.pdfRemoved = true;
+            delete lesson.pdf;
+
+            store[course.id] = course.modules;
+            sessionStorage.setItem(storeKey, JSON.stringify(store));
+
+            currentPdfSection.hidden = true;
+            removePdfDialog.close();
+        });
+    }
+
+
     const returnUrl =
         `teacher-courses.html?id=${encodeURIComponent(course.id)}`;
 
