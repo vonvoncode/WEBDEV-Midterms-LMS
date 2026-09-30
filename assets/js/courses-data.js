@@ -95,5 +95,21 @@ const COURSES = [
         assignments: [
             { id: "IT324-A1", name: "Entity relationship diagram", points: 100, due: "Oct 5, 2026, 11:00 PM", status: "open" }
         ]
-    }
+    },
+    // {
+    //     id: "MT334",
+    //     code: "MT 334",
+    //     units: 3,
+    //     title: "Statistics and Probability",
+    //     department: "Mathematics",
+    //     description: "Analyze problem, Enumerate Solutions, and Compute profit/loss",
+    //     color: "brown",
+    //     instructor: "Nimrod Reyes Sajise",
+    //     progress: 80,
+    //     percent: "92.00%",
+    //     gpa: "3.00",
+    //     assignments: [
+    //         { id: "MT334-A1", name: "Problem analysis", points: 40, earnedPoints: 34, due: "Oct 5, 2026, 11:00 PM", status: "open" }
+    //     ]
+    // }
 ];

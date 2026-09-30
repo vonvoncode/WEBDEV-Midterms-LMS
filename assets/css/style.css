@@ -842,6 +842,18 @@ button.course-card {
   background: linear-gradient(115deg, #6d7aee, #8e63d1);
 }
 
+.red {
+  background: linear-gradient(115deg, #e5534b, #c2384a);
+}
+
+.brown {
+  background: linear-gradient(115deg, #a9714b, #7d5238);
+}
+
+.grey {
+  background: linear-gradient(115deg, #8b95a5, #626c7c);
+}
+
 .course-body {
   padding: 19px;
 }

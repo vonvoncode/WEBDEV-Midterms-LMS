@@ -1,8 +1,6 @@
 (function () {
     const SUBMISSIONS_KEY = 'ascendone-submissions';
 
-    /* ---------- Helpers ---------- */
-
     function escapeHTML(value) {
         return String(value).replace(/[&<>"']/g, (char) => ({
             '&': '&amp;',

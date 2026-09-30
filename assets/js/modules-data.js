@@ -117,6 +117,17 @@ const MODULES = [
         description:
             "Writing core SQL queries and normalizing tables to reduce redundancy.",
         pdf: "materials/IT324-M2.pdf"
+    },
+
+    /* MT 334 · Statistics & Probability */
+    {
+        id: "MT334-M1",
+        courseId: "MT334",
+        number: 1,
+        title: "Problem Solving and Solution making",
+        description:
+            "Learning Problem solving and Solution Identification.",
+        pdf: "materials/MT334-M1.pdf"
     }
 ];
 
@@ -162,6 +173,9 @@ const LESSONS_BY_MODULE = {
     "IT324-M2": [
         { title: "SQL Queries and Normalization", type: "reading" },
     ],
+    // "MT334-M1": [
+    //     { title: "Problem Solving and Solution making", type: "reading" },
+    // ],
 };
 
 MODULES.forEach((module) => {
