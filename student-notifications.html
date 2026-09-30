@@ -1,155 +1,146 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#7056ff" />
-    <title>Notifications · AscendOne</title>
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="assets/css/style.css" />
-  </head>
-  <body>
-    <div class="app-shell">
-      <!-- Sidebar (no Notifications nav item — bell icon in the topbar is the only entry point) -->
-      <aside class="sidebar" id="sidebar">
-        <a
-          href="student-dashboard.html"
-          class="brand"
-          aria-label="AscendOne home"
-        >
-          <span class="brand-symbol">
-            <i class="icon" data-lucide="book-open"></i>
-          </span>
-          AscendOne
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#7056ff" />
+  <title>Notifications · AscendOne</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body>
+  <div class="app-shell">
+    <!-- Sidebar (no Notifications nav item — bell icon in the topbar is the only entry point) -->
+    <aside class="sidebar" id="sidebar">
+      <a href="student-dashboard.html" class="brand" aria-label="AscendOne home">
+        <span class="brand-symbol">
+          <i class="icon" data-lucide="book-open"></i>
+        </span>
+        AscendOne
+      </a>
+      <p class="tagline">reach the top as one</p>
+
+      <p class="nav-label">Student workspace</p>
+      <nav>
+        <a href="student-dashboard.html">
+          <i class="icon" data-lucide="layout-dashboard"></i>
+          Dashboard
         </a>
-        <p class="tagline">reach the top as one</p>
+        <a href="student-courses.html">
+          <i class="icon" data-lucide="book-open"></i>
+          My Courses
+        </a>
+        <a href="student-assessments.html">
+          <i class="icon" data-lucide="file-text"></i>
+          Assessments
+        </a>
+        <a href="student-grades.html">
+          <i class="icon" data-lucide="graduation-cap"></i>
+          Grades
+        </a>
+        <a href="student-announcements.html">
+          <i class="icon" data-lucide="megaphone"></i>
+          Announcements
+        </a>
+      </nav>
 
-        <p class="nav-label">Student workspace</p>
-        <nav>
-          <a href="student-dashboard.html">
-            <i class="icon" data-lucide="layout-dashboard"></i>
-            Dashboard
-          </a>
-          <a href="student-courses.html">
-            <i class="icon" data-lucide="book-open"></i>
-            My Courses
-          </a>
-          <a href="student-assessments.html">
-            <i class="icon" data-lucide="file-text"></i>
-            Assessments
-          </a>
-          <a href="student-grades.html">
-            <i class="icon" data-lucide="graduation-cap"></i>
-            Grades
-          </a>
-          <a href="student-announcements.html">
-            <i class="icon" data-lucide="megaphone"></i>
-            Announcements
-          </a>
-        </nav>
+      <div class="sidebar-bottom">
+        <a href="student-settings.html" class="settings-link">
+          <i class="icon" data-lucide="settings"></i>
+          Settings
+        </a>
 
-        <div class="sidebar-bottom">
-          <a href="student-settings.html" class="settings-link">
-            <i class="icon" data-lucide="settings"></i>
-            Settings
-          </a>
-
-          <div class="user-card">
-            <span class="avatar">VQ</span>
-            <div>
-              <strong>Von Quobie Ferrer</strong>
-              <small>Student Account</small>
-            </div>
-          </div>
-
-          <button class="logout" id="logout">
-            <i class="icon" data-lucide="log-out"></i>
-            Log out
-          </button>
-        </div>
-      </aside>
-
-      <button id="nav-overlay" aria-label="Close menu"></button>
-
-      <!-- Topbar -->
-      <header class="topbar">
-        <div class="topbar-title">
-          <button
-            class="icon-button mobile-menu"
-            aria-label="Open menu"
-            aria-controls="sidebar"
-          >
-            <i class="icon" data-lucide="menu"></i>
-          </button>
+        <div class="user-card">
+          <span class="avatar">VQ</span>
           <div>
-            <h1>Notifications</h1>
-            <p>First semester · 2026</p>
+            <strong>Von Quobie Ferrer</strong>
+            <small>Student Account</small>
           </div>
         </div>
 
-        <div class="top-actions">
-          <span class="role-chip">Student</span>
-          <button
-            class="icon-button"
-            id="theme-toggle"
-            aria-label="Toggle dark mode"
-          >
-            <i class="icon" data-lucide="moon"></i>
-          </button>
-          <a
-            href="student-notifications.html"
-            class="icon-button notification-button"
-            aria-label="Notifications"
-            aria-current="page"
-          >
-            <i class="icon" data-lucide="bell"></i>
-            <span class="notification-count">2</span>
-          </a>
-        </div>
-      </header>
+        <button class="logout" id="logout">
+          <i class="icon" data-lucide="log-out"></i>
+          Log out
+        </button>
+      </div>
+    </aside>
 
-      <!-- Main content -->
-      <main class="main-content">
-        <p class="eyebrow">Your activity</p>
-        <div class="page-intro">
+    <button id="nav-overlay" aria-label="Close menu"></button>
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-title">
+        <button class="icon-button mobile-menu" aria-label="Open menu" aria-controls="sidebar">
+          <i class="icon" data-lucide="menu"></i>
+        </button>
+        <div>
+          <h1>Notifications</h1>
+          <p>First semester · 2026</p>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <span class="role-chip">Student</span>
+        <button class="icon-button" id="theme-toggle" aria-label="Toggle dark mode">
+          <i class="icon" data-lucide="moon"></i>
+        </button>
+        <a href="student-notifications.html" class="icon-button notification-button" aria-label="Notifications"
+          aria-current="page">
+          <i class="icon" data-lucide="bell"></i>
+          <span class="notification-count">2</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="main-content">
+      <p class="eyebrow">Your activity</p>
+      <div class="page-intro">
+        <div>
+          <h2>Notifications</h2>
+          <p>Keep up with assignments, submissions, and feedback.</p>
+        </div>
+        <button class="button secondary" type="button" id="clear-notifications">
+          <i class="icon" data-lucide="trash-2"></i>
+          Clear all
+        </button>
+      </div>
+
+      <section class="panel">
+        <div class="notification-row unread">
+          <i class="icon" data-lucide="bell"></i>
           <div>
-            <h2>Notifications</h2>
-            <p>Keep up with assignments, submissions, and feedback.</p>
+            <strong>Your algorithm analysis feedback is ready.</strong>
+            <small>Sep 24, 2026, 11:00 PM</small>
           </div>
+          <button class="icon-button notif-delete" type="button" aria-label="Dismiss notification">
+            <i class="icon" data-lucide="trash-2"></i>
+          </button>
         </div>
 
-        <section class="panel">
-          <div class="notification-row unread">
-            <i class="icon" data-lucide="bell"></i>
-            <div>
-              <strong>Your algorithm analysis feedback is ready.</strong>
-              <small>Sep 24, 2026, 11:00 PM</small>
-            </div>
-            <button class="icon-button notif-delete" type="button" aria-label="Dismiss notification">
-              <i class="icon" data-lucide="trash-2"></i>
-            </button>
+        <div class="notification-row unread">
+          <i class="icon" data-lucide="bell"></i>
+          <div>
+            <strong>Your interface audit has been graded.</strong>
+            <small>Sep 22, 2026, 11:00 PM</small>
           </div>
+          <button class="icon-button notif-delete" type="button" aria-label="Dismiss notification">
+            <i class="icon" data-lucide="trash-2"></i>
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
 
-          <div class="notification-row unread">
-            <i class="icon" data-lucide="bell"></i>
-            <div>
-              <strong>Your interface audit has been graded.</strong>
-              <small>Sep 22, 2026, 11:00 PM</small>
-            </div>
-            <button class="icon-button notif-delete" type="button" aria-label="Dismiss notification">
-              <i class="icon" data-lucide="trash-2"></i>
-            </button>
-          </div>
-        </section>
-      </main>
-    </div>
+  <div id="toast" role="status"></div>
 
-    <div id="toast" role="status"></div>
+  <script src="assets/js/script.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
 
-    <script src="assets/js/script.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-      lucide.createIcons();
-    </script>
-  </body>
 </html>
