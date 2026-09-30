@@ -23,7 +23,6 @@ function buildAssignmentRow(assignment, courseTitle) {
       <a class="table-link" href="student-assignment-detail.html?id=${assignment.id}">${assignment.name}</a>
       <small>${assignment.points} points</small>
     </td>
-    <td>${courseTitle}</td>
     <td>${assignment.due}</td>
     <td><span class="${badgeClass}">${badgeLabel}</span></td>
     <td>${earnedLabel}</td>
@@ -135,7 +134,7 @@ function renderCourse(course) {
     document.getElementById("course-title").textContent = course.title;
     document.getElementById("hero-meta").textContent = `${course.code} · ${course.units} units`;
     document.getElementById("hero-title").textContent = course.title;
-    document.getElementById("hero-sub").textContent = `${course.instructor} · ${course.department}`;
+    document.getElementById("hero-sub").textContent = `${course.department}`;
     document.getElementById("hero-percent").textContent = `${course.progress}%`;
     document.getElementById("hero-progress-bar").style.width = `${course.progress}%`;
     document.getElementById("course-description").textContent = course.description;

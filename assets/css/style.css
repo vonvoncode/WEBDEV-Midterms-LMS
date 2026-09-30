@@ -33,6 +33,10 @@
   --shadow: 0 12px 32px rgb(0 0 0 / 12%);
 }
 
+.title{
+  font: "Helvetica Neue", Arial, sans-serif;
+}
+
 :root[data-theme="dark"] .login-story {
   background: #232236;
   border-color: var(--line);
