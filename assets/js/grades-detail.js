@@ -4,18 +4,24 @@ function buildModalRow(assignment, courseTitle) {
     const badgeClass = assignment.status === "graded" ? "badge good" : "badge soft";
     const badgeLabel = assignment.status === "graded" ? "Graded" : "Open";
 
+    const pointsLabel = assignment.points != null
+        ? `<small>${assignment.points} points</small>`
+        : "No points assigned";
+
     const earnedLabel = assignment.earnedPoints != null
         ? `<small class="${badgeClass}">${assignment.earnedPoints} points</small>`
-        : "";
+        : "No Submission yet";
 
     tr.innerHTML = `
     <td>
       <a class="table-link" href="student-assignment-detail.html?id=${assignment.id}">${assignment.name}</a>
-      ${earnedLabel}
+      <br/>
+      ${pointsLabel}
     </td>
     <td>${courseTitle}</td>
     <td>${assignment.due}</td>
     <td><span class="${badgeClass}">${badgeLabel}</span></td>
+    <td>${earnedLabel}</td>
   `;
 
     return tr;

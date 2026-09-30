@@ -723,7 +723,9 @@ strong {
 }
 
 .activity-list {
-  padding: 4px 22px;
+  display: grid;
+  padding: 10px 22px;
+  gap: 12px;
 }
 
 .activity-list>a,
@@ -1055,7 +1057,7 @@ th {
 }
 
 td {
-  font-size: 12px;
+  font-size: 13px;
 }
 
 td small {
@@ -1069,6 +1071,7 @@ tbody tr:last-child td {
 }
 
 .table-link {
+  font-size: 18px;
   font-weight: 650;
 }
 
@@ -1081,7 +1084,7 @@ tbody tr:last-child td {
   display: inline-block;
   padding: 4px 9px;
   border-radius: 20px;
-  font-size: 11px;
+  font-size: 13px;
   white-space: nowrap;
 }
 
@@ -1648,7 +1651,7 @@ input[type="checkbox"] {
 }
 
 dialog {
-  width: min(640px, calc(100% - 32px));
+  width: min(1040px, calc(100% - 32px));
   max-height: 90dvh;
   padding: 0;
   border: 1px solid var(--line);
