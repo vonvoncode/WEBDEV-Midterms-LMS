@@ -81,13 +81,13 @@
         <span class="role-chip">Teacher</span>
         <button class="icon-button" id="theme-toggle" aria-label="Toggle dark mode">
           <i class="icon" data-lucide="moon"></i>
-          </button>
-          <a href="teacher-notifications.html" class="icon-button notification-button" aria-label="Notifications"
-            aria-current="page">
-            <i class="icon" data-lucide="bell"></i>
-            <span class="notification-count">3</span>
-          </a>
-          </div>
+        </button>
+        <a href="teacher-notifications.html" class="icon-button notification-button" aria-label="Notifications"
+          aria-current="page">
+          <i class="icon" data-lucide="bell"></i>
+          <span class="notification-count">3</span>
+        </a>
+      </div>
     </header>
 
     <!-- Main content -->
@@ -228,7 +228,7 @@
 
           <section class="panel">
             <div class="table-wrap">
-              <table>
+              <table id="attendance-table">
                 <thead id="attendance-head"></thead>
                 <tbody id="attendance-rows"></tbody>
               </table>
@@ -457,6 +457,28 @@
   </template>
 
   <div id="toast" role="status"></div>
+
+  <dialog id="remove-attendance-date-dialog">
+    <div class="dialog-head">
+      <h2>Remove attendance date?</h2>
+    </div>
+
+    <div class="dialog-content">
+      <p>
+        Remove <strong id="attendance-date-to-remove"></strong> and all
+        attendance marks saved for that date?
+      </p>
+    </div>
+
+    <div class="dialog-actions">
+      <button class="button secondary" id="cancel-remove-attendance-date" type="button">
+        Cancel
+      </button>
+      <button class="button danger-button" id="confirm-remove-attendance-date" type="button">
+        Remove date
+      </button>
+    </div>
+  </dialog>
 
   <script src="assets/js/script.js"></script>
   <script src="assets/js/teacher-data.js"></script>

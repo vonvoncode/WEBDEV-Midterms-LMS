@@ -652,6 +652,54 @@ strong {
   gap: 24px;
 }
 
+.teaching-checklist {
+    display: grid;
+    padding: 8px 22px 18px;
+}
+
+.checklist-item {
+    display: grid;
+    grid-template-columns: 20px 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.checklist-item:last-child {
+    border-bottom: 0;
+}
+
+.checklist-item input {
+    accent-color: var(--primary);
+}
+
+.checklist-copy strong,
+.checklist-copy small {
+    display: block;
+}
+
+.checklist-copy strong {
+    font-size: 13px;
+}
+
+.checklist-copy small {
+    margin-top: 4px;
+    color: var(--muted);
+}
+
+.checklist-item.is-done .checklist-copy strong {
+    color: var(--muted);
+    text-decoration: line-through;
+}
+
+.checklist-item a {
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
 .section-space {
   margin-top: 30px;
 }
@@ -2243,6 +2291,58 @@ legend {
     background: #fff0f0;
     color: #9b3030;
   }
+
+  .attendance-remove-date {
+    display: block;
+    margin: 6px auto 0;
+    padding: 3px 8px;
+    border: 1px solid #d98b8b;
+    border-radius: 6px;
+    background: transparent;
+    color: #b74747;
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.attendance-remove-date:hover {
+    background: #fff0f0;
+}
+
+#attendance-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+#attendance-table th,
+#attendance-table td {
+    box-sizing: border-box;
+    text-align: left;
+    vertical-align: middle;
+}
+
+#attendance-table th:first-child,
+#attendance-table td:first-child {
+    width: 240px;
+}
+
+#attendance-table th:not(:first-child),
+#attendance-table td:not(:first-child) {
+    width: 150px;
+}
+
+#attendance-table th {
+    white-space: nowrap;
+}
+
+#attendance-table th span {
+    display: block;
+}
+
+#attendance-table .attendance-remove-date {
+    margin: 6px 0 0;
+}
 
   .notification-row {
   display: flex;

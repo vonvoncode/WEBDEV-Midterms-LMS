@@ -176,8 +176,8 @@ function renderModules(course) {
     }
 
     course.modules.forEach((mod, index) =>
-    list.appendChild(buildModuleItem(course, mod, index))
-);
+        list.appendChild(buildModuleItem(course, mod, index))
+    );
 
     if (window.lucide) {
         lucide.createIcons();
@@ -341,6 +341,13 @@ function renderStudents(course) {
     const head = document.getElementById("attendance-head");
     const body = document.getElementById("attendance-rows");
 
+    // Remove any duplicate dates already saved in browser storage.
+    const uniqueDates = [...new Set(attendance.dates)];
+    if (uniqueDates.length !== attendance.dates.length) {
+        attendance.dates = uniqueDates;
+        saveAttendanceData(data);
+    }
+
     head.innerHTML = "";
     body.innerHTML = "";
 
@@ -349,9 +356,23 @@ function renderStudents(course) {
     studentHeader.textContent = "Student";
     headerRow.appendChild(studentHeader);
 
-    attendance.dates.forEach((date) => {
+    uniqueDates.forEach((date) => {
         const dateHeader = document.createElement("th");
-        dateHeader.textContent = formatAttendanceDate(date);
+
+        const dateLabel = document.createElement("span");
+        dateLabel.textContent = formatAttendanceDate(date);
+
+        const removeButton = document.createElement("button");
+        removeButton.type = "button";
+        removeButton.className = "attendance-remove-date";
+        removeButton.dataset.date = date;
+        removeButton.textContent = "Remove";
+        removeButton.setAttribute(
+            "aria-label",
+            `Remove attendance date ${formatAttendanceDate(date)}`
+        );
+
+        dateHeader.append(dateLabel, removeButton);
         headerRow.appendChild(dateHeader);
     });
 
@@ -364,7 +385,8 @@ function renderStudents(course) {
         nameCell.textContent = student.name;
         row.appendChild(nameCell);
 
-        attendance.dates.forEach((date) => {
+        // Create one attendance tile for this student under every date.
+        uniqueDates.forEach((date) => {
             const cell = document.createElement("td");
             const button = document.createElement("button");
             const status = attendance.records[date]?.[student.id] || "";
@@ -519,6 +541,50 @@ function init() {
         }
 
         saveAttendanceData(data);
+        renderStudents(course);
+    });
+
+    let pendingAttendanceDate = null;
+
+document.addEventListener("click", (event) => {
+    const button = event.target.closest(".attendance-remove-date");
+    if (!button) return;
+
+    pendingAttendanceDate = button.dataset.date;
+
+    document.getElementById("attendance-date-to-remove").textContent =
+        formatAttendanceDate(pendingAttendanceDate);
+
+    document.getElementById("remove-attendance-date-dialog").showModal();
+});
+
+document
+    .getElementById("cancel-remove-attendance-date")
+    .addEventListener("click", () => {
+        document.getElementById("remove-attendance-date-dialog").close();
+        pendingAttendanceDate = null;
+    });
+
+document
+    .getElementById("confirm-remove-attendance-date")
+    .addEventListener("click", () => {
+        if (!pendingAttendanceDate) return;
+
+        const course = getCourseById(currentCourseId);
+        if (!course) return;
+
+        const data = getAttendanceData();
+        const attendance = getCourseAttendance(data, course.id);
+
+        attendance.dates = attendance.dates.filter(
+            (date) => date !== pendingAttendanceDate
+        );
+
+        delete attendance.records[pendingAttendanceDate];
+
+        saveAttendanceData(data);
+        document.getElementById("remove-attendance-date-dialog").close();
+        pendingAttendanceDate = null;
         renderStudents(course);
     });
 

@@ -15,19 +15,105 @@ function buildToGradeRow(assignment, course) {
     return tr;
 }
 
-function buildUpcomingRow(assignment, course) {
-    const a = document.createElement("a");
-    a.href = `teacher-courses.html?id=${course.id}`;
+const TEACHING_CHECKLIST_KEY = "ascendone-teaching-checklist";
 
-    const [month, day] = assignment.due.split(" ");
-    a.innerHTML = `
-    <time><b>${day.replace(",", "")}</b><span>${month}</span></time>
-    <div>
-      <strong>${assignment.name}</strong>
-      <small>${course.title} · ${assignment.due}</small>
-    </div>
-  `;
-    return a;
+const TEACHING_TASKS = [
+    {
+        id: "lesson-content",
+        title: "Set up lesson content",
+        detail: "Add modules and lessons to a course.",
+        href: "teacher-courses.html",
+    },
+    {
+        id: "announcement",
+        title: "Post a class announcement",
+        detail: "Share an update with your students.",
+        href: "teacher-announcements.html",
+    },
+    {
+        id: "attendance",
+        title: "Record class attendance",
+        detail: "Mark attendance from a course page.",
+        href: "teacher-courses.html",
+    },
+    {
+        id: "grades",
+        title: "Review student grades",
+        detail: "Check student progress across your courses.",
+        href: "teacher-grades.html",
+    },
+];
+
+function renderTeachingChecklist() {
+    const checklist = document.getElementById("teaching-checklist");
+    const progress = document.getElementById("checklist-progress");
+
+    if (!checklist || !progress) return;
+
+    let completedTasks = {};
+
+    try {
+        completedTasks =
+            JSON.parse(localStorage.getItem(TEACHING_CHECKLIST_KEY)) || {};
+    } catch {
+        completedTasks = {};
+    }
+
+    checklist.innerHTML = "";
+
+    TEACHING_TASKS.forEach((task) => {
+        const row = document.createElement("div");
+        row.className = "checklist-item";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = Boolean(completedTasks[task.id]);
+        checkbox.setAttribute("aria-label", `Mark "${task.title}" complete`);
+
+        const copy = document.createElement("div");
+        copy.className = "checklist-copy";
+
+        const title = document.createElement("strong");
+        title.textContent = task.title;
+
+        const detail = document.createElement("small");
+        detail.textContent = task.detail;
+
+        copy.append(title, detail);
+
+        const link = document.createElement("a");
+        link.href = task.href;
+        link.textContent = "Open";
+
+        if (checkbox.checked) {
+            row.classList.add("is-done");
+        }
+
+        checkbox.addEventListener("change", () => {
+            completedTasks[task.id] = checkbox.checked;
+            localStorage.setItem(
+                TEACHING_CHECKLIST_KEY,
+                JSON.stringify(completedTasks)
+            );
+
+            row.classList.toggle("is-done", checkbox.checked);
+            updateChecklistProgress(completedTasks);
+        });
+
+        row.append(checkbox, copy, link);
+        checklist.appendChild(row);
+    });
+
+    updateChecklistProgress(completedTasks);
+}
+
+function updateChecklistProgress(completedTasks) {
+    const progress = document.getElementById("checklist-progress");
+    const count = TEACHING_TASKS.filter(
+        (task) => completedTasks[task.id]
+    ).length;
+
+    progress.textContent = `${count} of ${TEACHING_TASKS.length} completed`;
 }
 
 function buildCourseCard(course) {
@@ -96,10 +182,7 @@ function init() {
         toGradeBody.appendChild(buildToGradeRow(assignment, course));
     });
 
-    const upcomingList = document.getElementById("upcoming-list");
-    openAssignments.slice(0, 3).forEach(({ assignment, course }) => {
-        upcomingList.appendChild(buildUpcomingRow(assignment, course));
-    });
+    renderTeachingChecklist();
 
     const courseGrid = document.getElementById("dashboard-course-grid");
     TEACHER_COURSES.slice(0, 4).forEach((course) => {
