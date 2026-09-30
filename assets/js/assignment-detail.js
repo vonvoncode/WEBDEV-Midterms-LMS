@@ -102,7 +102,8 @@
             }
       <div class="feedback">
         <span class="eyebrow">Teacher feedback</span>
-        <h3>${earned} / ${assignment.points} points · ${gradePointFor(percent)}</h3>
+        <br/>
+        <h3 class="gradeBox">${earned} / ${assignment.points} points · ${gradePointFor(percent)}</h3>
         <p>${escapeHTML(detail.feedback || 'No written feedback yet.')}</p>
       </div>
       <p class="hint">Graded submissions are locked.</p>

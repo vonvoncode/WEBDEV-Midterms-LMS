@@ -1044,6 +1044,16 @@ tbody tr:last-child td {
   background: rgb(28 184 135 / 9%);
 }
 
+.gradeBox {
+  display: inline-block;
+  padding: 4px 6px;
+  border-radius: 20px;
+  font-size: 14px;
+  white-space: nowrap;
+  color: var(--success);
+  background: rgb(28 184 135 / 9%);
+}
+
 .badge.danger {
   color: var(--danger);
   background: rgb(222 75 111 / 8%);
@@ -2243,7 +2253,6 @@ legend {
   align-self: center;
 }
 
-/* Responsive behavior */
 @media (max-width: 1250px) {
   .course-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

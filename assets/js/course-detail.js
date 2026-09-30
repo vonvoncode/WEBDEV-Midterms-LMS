@@ -14,6 +14,10 @@ function buildAssignmentRow(assignment, courseTitle) {
     const badgeClass = assignment.status === "graded" ? "badge good" : "badge soft";
     const badgeLabel = assignment.status === "graded" ? "Graded" : "Open";
 
+    const earnedLabel = assignment.earnedPoints != null
+        ? `<small class="${badgeClass}">${assignment.earnedPoints} points</small>`
+        : "No Submission yet";
+
     tr.innerHTML = `
     <td>
       <a class="table-link" href="student-assignment-detail.html?id=${assignment.id}">${assignment.name}</a>
@@ -22,6 +26,7 @@ function buildAssignmentRow(assignment, courseTitle) {
     <td>${courseTitle}</td>
     <td>${assignment.due}</td>
     <td><span class="${badgeClass}">${badgeLabel}</span></td>
+    <td>${earnedLabel}</td>
   `;
 
     return tr;
@@ -101,7 +106,7 @@ function renderModules(course) {
             icon.className = "icon";
             icon.dataset.lucide =
                 lesson.type === "video" ? "play-circle" :
-                lesson.type === "link" ? "link" : "file-text";
+                    lesson.type === "link" ? "link" : "file-text";
 
             const lessonTitle = document.createElement("strong");
             lessonTitle.textContent = lesson.title;

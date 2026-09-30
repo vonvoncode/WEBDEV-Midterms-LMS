@@ -68,16 +68,12 @@
         errorEl.textContent = '';
     });
 
-    // Click on the backdrop (outside the dialog box) closes it
+
     modal.addEventListener('click', (event) => {
         if (event.target === modal) {
             closeModal();
         }
     });
-
-    /* ---------- Appearance button ---------- */
-    // script.js owns the theme logic; this button triggers the topbar toggle
-    // and keeps its own label in sync.
 
     function syncAppearanceLabel() {
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
