@@ -358,6 +358,9 @@ strong {
 }
 
 .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   min-height: 94px;
   display: flex;
   justify-content: space-between;
@@ -2307,11 +2310,11 @@ legend {
     display: inline-flex;
   }
 
-  .topbar {
-    padding: 18px 24px;
-    min-height: 84px;
-  }
+.topbar {
+  padding: 18px 24px;
+  min-height: 84px;
 
+}
   .topbar h1 {
     font-size: 23px;
   }
