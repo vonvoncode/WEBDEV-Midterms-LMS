@@ -2219,6 +2219,18 @@ legend {
     color: #9b3030;
   }
 
+  .notification-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.notif-delete {
+  margin-left: auto;
+  flex-shrink: 0;
+  align-self: center;
+}
+
 /* Responsive behavior */
 @media (max-width: 1250px) {
   .course-grid {

@@ -244,3 +244,48 @@ function saveDisplayName(name) {
 }
 
 applyDisplayName(getSavedDisplayName());
+
+/* Notification delete / clear all — for testing only, nothing is saved,
+   so a page refresh brings every notification back */
+const clearAllButton = document.getElementById('clear-notifications');
+const topbarNotificationBadge = document.querySelector('.notification-button .notification-count');
+
+function updateNotificationBadge() {
+    if (!topbarNotificationBadge) return;
+
+    const unreadCount = document.querySelectorAll('.notification-row.unread').length;
+
+    if (unreadCount === 0) {
+        topbarNotificationBadge.remove();
+    } else {
+        topbarNotificationBadge.textContent = unreadCount;
+    }
+}
+
+function updateNotificationPanelState() {
+    const remaining = document.querySelectorAll('.notification-row').length;
+    const emptyState = document.getElementById('no-notifications');
+
+    if (emptyState) {
+        emptyState.hidden = remaining !== 0;
+    }
+    if (clearAllButton) {
+        clearAllButton.hidden = remaining === 0;
+    }
+}
+
+document.querySelectorAll('.notif-delete').forEach((button) => {
+    button.addEventListener('click', () => {
+        button.closest('.notification-row').remove();
+        updateNotificationBadge();
+        updateNotificationPanelState();
+    });
+});
+
+if (clearAllButton) {
+    clearAllButton.addEventListener('click', () => {
+        document.querySelectorAll('.notification-row').forEach((row) => row.remove());
+        updateNotificationBadge();
+        updateNotificationPanelState();
+    });
+}
