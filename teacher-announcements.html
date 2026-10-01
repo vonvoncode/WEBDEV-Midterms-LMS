@@ -162,6 +162,29 @@
     </main>
   </div>
 
+  <dialog id="post-announcement-confirm-dialog">
+    <div class="dialog-head">
+      <h2>Post this announcement?</h2>
+    </div>
+
+    <div class="dialog-content">
+      <p>
+        Are you sure you want to post
+        “<strong id="announcement-title-to-post"></strong>”?
+      </p>
+    </div>
+
+    <div class="dialog-actions">
+      <button class="button secondary" id="cancel-post-announcement" type="button">
+        Cancel
+      </button>
+
+      <button class="button primary" id="confirm-post-announcement" type="button">
+        Post announcement
+      </button>
+    </div>
+  </dialog>
+
   <div id="toast" role="status"></div>
 
   <script src="assets/js/script.js"></script>
