@@ -16,27 +16,75 @@ const GPA_SCALE = [
 ];
 
 function percentToGpa(percent) {
-    if (percent == null) return null;
-    return GPA_SCALE.find((tier) => percent >= tier.min).gpa;
+    if (
+        !Number.isFinite(percent) ||
+        percent < 0 ||
+        percent > 100
+    ) {
+        return null;
+    }
+
+    return GPA_SCALE.find((tier) => percent >= tier.min)?.gpa ?? null;
 }
 
 let selectedCourseId = "IT315";
 let sortState = { key: "name", dir: "asc" };
 let pendingGradeStudentId = null;
 
+function savedStudentPercent(course, student) {
+    let earned = 0;
+    let possible = 0;
+
+    for (const assignment of course.assignments) {
+        const score = student.scores?.[assignment.id];
+        const points = Number(assignment.points);
+
+        if (
+            score == null ||
+            score === "" ||
+            !Number.isFinite(Number(score)) ||
+            !Number.isFinite(points) ||
+            Number(score) < 0 ||
+            Number(score) > points
+        ) continue;
+
+        earned += Number(score);
+        possible += points;
+    }
+
+    return possible === 0 ? null : (earned / possible) * 100;
+}
+
+function savedCoursePercent(course) {
+    const percentages = course.students
+        .map((student) => savedStudentPercent(course, student))
+        .filter((percent) => percent != null);
+
+    if (percentages.length === 0) return null;
+
+    return Math.round(
+        percentages.reduce((sum, percent) => sum + percent, 0) /
+        percentages.length
+    );
+}
+
 function renderRoster() {
     const course = getCourseById(selectedCourseId);
 
     document.getElementById("course-banner-title").textContent = `${course.title} average`;
-    const average = courseGradePercent(course);
+    const average = savedCoursePercent(course);
     document.getElementById("course-average").textContent = average == null ? "Pending" : `${average}%`;
     document.getElementById("roster-count").textContent =
         `${course.students.length} student${course.students.length === 1 ? "" : "s"}`;
 
-    const rows = course.students.map((student) => ({
-        student,
-        percent: studentPercent(course, student),
-    }));
+    const rows = course.students.map((student) => {
+        const percent = savedStudentPercent(course, student);
+
+        return {
+            student,
+            percent: percent == null ? null : Math.round(percent),
+        };
+    });
 
     rows.sort((a, b) => {
         let result;
@@ -62,7 +110,7 @@ function renderRoster() {
 function buildRosterRow(course, student, percent) {
     const total = course.assignments.length;
     const graded = course.assignments.filter(
-        (a) => a.status === "graded" && student.scores[a.id] != null
+        (a) => student.scores[a.id] != null
     ).length;
     const gpa = percentToGpa(percent);
     const barWidth = total === 0 ? 0 : Math.round((graded / total) * 100);
@@ -134,17 +182,62 @@ function openGradeDialog(studentId) {
 
 function saveGrades() {
     const course = getCourseById(selectedCourseId);
-    const student = course.students.find((s) => s.id === pendingGradeStudentId);
+    const student = course?.students.find(
+        (s) => s.id === pendingGradeStudentId
+    );
     if (!student) return;
 
-    document.querySelectorAll("#grade-dialog-rows input[data-assignment-id]").forEach((input) => {
+    const inputs = document.querySelectorAll(
+        "#grade-dialog-rows input[data-assignment-id]"
+    );
+    const updates = {};
+
+    for (const input of inputs) {
         const assignmentId = input.dataset.assignmentId;
+        const assignment = course.assignments.find(
+            (a) => String(a.id) === assignmentId
+        );
+        if (!assignment) return;
+
         const value = input.value.trim();
-        student.scores[assignmentId] = value === "" ? null : Number(value);
-    });
+        const score = input.valueAsNumber;
+        const maximum = Number(assignment.points);
+
+        // Check malformed number input before treating blanks as ungraded.
+        if (
+            input.validity.badInput ||
+            (value !== "" &&
+                (!Number.isFinite(score) ||
+                    score < 0 ||
+                    score > maximum))
+        ) {
+            showToast(
+                `${assignment.name}: enter a score from 0 to ${maximum}.`
+            );
+            input.focus();
+            input.reportValidity();
+            return;
+        }
+
+        if (!input.checkValidity()) {
+            input.focus();
+            input.reportValidity();
+            return;
+        }
+
+        updates[assignmentId] = value === "" ? null : score;
+    }
+
+    // Commit only after every input passes validation.
+    student.scores = {
+        ...student.scores,
+        ...updates,
+    };
 
     course.assignments.forEach((assignment) => {
-        const allGraded = course.students.every((s) => s.scores[assignment.id] != null);
+        const allGraded = course.students.every(
+            (s) => s.scores?.[assignment.id] != null
+        );
         assignment.status = allGraded ? "graded" : "open";
     });
 
