@@ -13,7 +13,7 @@ const COURSES = [
         gpa: "3.25",
         assignments: [
             { id: "IT315-A1", name: "Interface audit", points: 100, earnedPoints: 91, due: "Sep 21, 2026, 11:00 PM", status: "graded" },
-            { id: "IT315-A2", name: "Usability testing report", points: 100, due: "Sep 27, 2026, 11:00 PM", status: "open" }
+            { id: "IT315-A2", name: "Usability testing report", points: 100, due: "Oct 10, 2026, 11:00 PM", status: "open" }
         ]
     },
     {
