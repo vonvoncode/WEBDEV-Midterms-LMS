@@ -1,5 +1,32 @@
 (function () {
     const SUBMISSIONS_KEY = 'ascendone-submissions';
+    // Initial submission is free; only successfully saved replacements count.
+    const MAX_SUBMISSION_REPLACEMENTS = 3;
+
+    function getReplacementState(submission) {
+        const used = Number.isSafeInteger(submission?.replacementCount)
+            && submission.replacementCount >= 0 ? submission.replacementCount : 0;
+        const limit = Number.isSafeInteger(MAX_SUBMISSION_REPLACEMENTS)
+            && MAX_SUBMISSION_REPLACEMENTS >= 0 ? MAX_SUBMISSION_REPLACEMENTS : 0;
+        return { used, limit, remaining: Math.max(0, limit - used) };
+    }
+
+    function currentSubmission(assignment) {
+        return loadSubmissions()[assignment.id]
+            || ASSESSMENT_DETAILS[assignment.id]?.submission || null;
+    }
+
+    function submissionBlockReason(assignment, submission) {
+        if (assignment.status === 'graded') return 'Graded submissions are locked.';
+        const detail = ASSESSMENT_DETAILS[assignment.id] || {};
+        if (detail.allowLate === false && isPastDue(assignment.due)) {
+            return 'Submissions are closed for this assignment.';
+        }
+        if (submission && getReplacementState(submission).remaining === 0) {
+            return 'Replacement limit reached.';
+        }
+        return '';
+    }
 
     function escapeHTML(value) {
         return String(value).replace(/[&<>"']/g, (char) => ({
@@ -56,7 +83,71 @@
         try {
             sessionStorage.setItem(SUBMISSIONS_KEY, JSON.stringify(all));
         } catch (e) {
-            /* storage unavailable: submission still shows for this page view */
+            throw new Error('Unable to save your submission. Please try again.');
+        }
+    }
+
+
+    // File bytes live in IndexedDB; submission metadata stays in sessionStorage.
+    function fileStore(action, key, file) {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open('ascendone-submission-files', 1);
+            request.onupgradeneeded = () => request.result.createObjectStore('files');
+            request.onerror = () => reject(new Error('File storage is unavailable. Please try again.'));
+            request.onblocked = () => reject(new Error('Close other assignment tabs and try again.'));
+            request.onsuccess = () => {
+                const db = request.result;
+                const tx = db.transaction('files', action === 'get' ? 'readonly' : 'readwrite');
+                const store = tx.objectStore('files');
+                const operation = action === 'put' ? store.put(file, key)
+                    : action === 'delete' ? store.delete(key) : store.get(key);
+                tx.oncomplete = () => { db.close(); resolve(operation.result); };
+                tx.onabort = () => { db.close(); reject(new Error('The file could not be saved or read. Please try again.')); };
+                tx.onerror = () => { }; // onabort reports transaction failures.
+            };
+        });
+    }
+
+    const fileUrls = new Set();
+    window.addEventListener('pagehide', () => {
+        fileUrls.forEach((url) => URL.revokeObjectURL(url));
+        fileUrls.clear();
+    });
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted) window.location.reload();
+    });
+
+    async function displayFile(body, submission) {
+        if (!submission?.fileName) return;
+        const row = document.createElement('p');
+        row.className = 'hint';
+        row.textContent = 'File: ' + submission.fileName + ' (loading…)';
+        body.appendChild(row);
+        if (!submission.fileId) {
+            row.textContent = 'File: ' + submission.fileName + ' — only the name was saved; file unavailable.';
+            return;
+        }
+        try {
+            const file = await fileStore('get', submission.fileId);
+            if (!row.isConnected) return;
+            if (!(file instanceof Blob)) throw new Error('File unavailable in this browser.');
+            // Do not execute uploaded HTML/SVG as a same-origin document.
+            const previewTypes = ['application/pdf', 'text/plain', 'image/png', 'image/jpeg',
+                'image/gif', 'image/webp', 'image/avif', 'audio/mpeg', 'audio/ogg',
+                'audio/wav', 'video/mp4', 'video/webm'];
+            const preview = previewTypes.includes(file.type);
+            const blob = preview ? file : file.slice(0, file.size, 'application/octet-stream');
+            const url = URL.createObjectURL(blob);
+            fileUrls.add(url);
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.textContent = submission.fileName;
+            if (!preview) link.download = submission.fileName;
+            row.replaceChildren('File: ', link);
+        } catch (error) {
+            row.textContent = 'File: ' + submission.fileName + ' — ' + error.message;
         }
     }
 
@@ -74,18 +165,19 @@
         const body = document.getElementById('submission-body');
 
         const isGraded = assignment.status === 'graded';
-        const submission = isGraded
-            ? detail.submission
-            : loadSubmissions()[assignment.id] || detail.submission || null;
+        const submission = currentSubmission(assignment);
 
         if (isGraded) {
             renderGraded(body, context, detail, submission);
-        } else if (submission && !editing) {
+        } else if (submission && (!editing || submissionBlockReason(assignment, submission))) {
             renderSubmitted(body, context, submission);
         } else {
             renderForm(body, context, Boolean(submission));
         }
 
+        if (isGraded || (submission && (!editing || submissionBlockReason(assignment, submission)))) {
+            displayFile(body, submission);
+        }
         refreshIcons();
     }
 
@@ -111,20 +203,20 @@
     }
 
     function renderSubmitted(body, context, submission) {
+        const { used, limit, remaining } = getReplacementState(submission);
+        const blocked = submissionBlockReason(context.assignment, submission);
         body.innerHTML = `
       <span class="badge soft">Submitted</span>
       ${submission.late ? '<span class="badge danger">Late</span>' : ''}
       <p class="muted">Submitted ${escapeHTML(submission.submittedAt)}</p>
+      <div class="callout">
       <p class="answer-text">${escapeHTML(submission.answer)}</p>
-      ${submission.fileName
-                ? `<p class="hint">File record: ${escapeHTML(submission.fileName)}</p>`
-                : ''
-            }
+      </div>
       <div class="notice">
-        Waiting for your teacher to grade this. You can replace your submission until it is graded.
+        Waiting for your teacher to grade this. ${used} of ${limit} replacements used; ${remaining} remaining. ${blocked ? escapeHTML(blocked) : "You can replace your submission while submissions are open and it is ungraded."}
       </div>
       <div class="actions" style="margin-top:16px;">
-        <button class="button secondary" id="replace-btn" type="button">Replace submission</button>
+        <button class="button secondary" id="replace-btn" type="button" ${blocked ? "disabled" : ""}>Replace submission</button>
       </div>
     `;
 
@@ -135,7 +227,7 @@
 
     function renderForm(body, context, isReplacing) {
         const { assignment } = context;
-        const existing = loadSubmissions()[assignment.id];
+        const existing = currentSubmission(assignment);
 
         body.innerHTML = `
       ${isReplacing ? '' : '<span class="badge soft">Not submitted</span>'}
@@ -146,9 +238,9 @@
         </div>
  
         <div class="field file-zone">
-          <label for="file-record">Optional file record</label>
+          <label for="file-record">Attachment (optional)</label>
           <input type="file" id="file-record" />
-          <small>Only the file name is recorded. File contents are not saved.</small>
+          <small>Files are stored in this browser. Click the saved file name to open it. Leave empty to keep your current attachment.</small>
         </div>
  
         <p class="form-error" id="submission-error" role="alert"></p>
@@ -168,7 +260,6 @@
         const answerInput = document.getElementById('answer');
         const errorEl = document.getElementById('submission-error');
 
-        // Textarea value is set via the DOM (not the template) so user text is never parsed as HTML
         if (existing) {
             answerInput.value = existing.answer;
         }
@@ -183,8 +274,17 @@
             });
         }
 
-        document.getElementById('submission-form').addEventListener('submit', (event) => {
+        let saving = false;
+        document.getElementById('submission-form').addEventListener('submit', async (event) => {
             event.preventDefault();
+            if (saving) return;
+
+            const latest = currentSubmission(assignment);
+            const blocked = submissionBlockReason(assignment, latest);
+            if (blocked) {
+                errorEl.textContent = blocked;
+                return;
+            }
 
             const answer = answerInput.value.trim();
             if (!answer) {
@@ -195,12 +295,33 @@
 
             const file = document.getElementById('file-record').files[0];
 
-            saveSubmission(assignment.id, {
-                answer,
-                fileName: file ? file.name : '',
-                submittedAt: formatNow(),
-                late: isPastDue(assignment.due)
-            });
+            saving = true;
+            const controls = [...document.getElementById('submission-form').querySelectorAll('button, input, textarea')];
+            controls.forEach((control) => { control.disabled = true; });
+            let newFileId = null;
+            try {
+                if (file) {
+                    newFileId = crypto.randomUUID();
+                    await fileStore('put', newFileId, file);
+                }
+                const recheck = submissionBlockReason(assignment, currentSubmission(assignment));
+                if (recheck) throw new Error(recheck);
+                saveSubmission(assignment.id, {
+                    answer,
+                    fileName: file ? file.name : (latest?.fileName || ''),
+                    fileId: newFileId || latest?.fileId || null,
+                    submittedAt: formatNow(),
+                    late: isPastDue(assignment.due),
+                    replacementCount: latest
+                        ? getReplacementState(latest).used + 1 : 0
+                });
+            } catch (error) {
+                if (newFileId) fileStore('delete', newFileId).catch(() => { });
+                errorEl.textContent = error.message;
+                saving = false;
+                controls.forEach((control) => { control.disabled = false; });
+                return;
+            }
 
             renderSubmission(context, false);
 

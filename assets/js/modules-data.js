@@ -190,7 +190,7 @@ MODULES.forEach((module) => {
 });
 
 const RECENT_MODULES_KEY = "ascendone-recent-modules";
-const RECENT_MODULES_LIMIT = 3;
+const RECENT_MODULES_LIMIT = 4;
 
 function getRecentModuleIds() {
     try {
