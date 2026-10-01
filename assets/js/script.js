@@ -12,6 +12,22 @@ const passwordInput = document.getElementById("password");
 const errorMessage = document.getElementById("login-error");
 
 
+function togglePasswordVisibility(input, button) {
+    const showPassword = input.type === "password";
+
+    input.type = showPassword ? "text" : "password";
+    button.textContent = showPassword ? "Hide" : "Show";
+    button.setAttribute(
+        "aria-label",
+        showPassword ? "Hide password" : "Show password"
+    );
+}
+const toggleButton = document.getElementById("toggle-password");
+
+toggleButton.addEventListener("click", () => {
+    togglePasswordVisibility(passwordInput, toggleButton);
+});
+
 
 function findAccount(username, password) {
     return (
