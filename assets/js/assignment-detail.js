@@ -206,7 +206,7 @@
         const { used, limit, remaining } = getReplacementState(submission);
         const blocked = submissionBlockReason(context.assignment, submission);
         body.innerHTML = `
-      <span class="badge soft">Submitted</span>
+      <span class="badge good2">Submitted</span>
       ${submission.late ? '<span class="badge danger">Late</span>' : ''}
       <p class="muted">Submitted ${escapeHTML(submission.submittedAt)}</p>
       <div class="callout">

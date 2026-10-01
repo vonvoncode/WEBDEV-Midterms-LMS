@@ -6,9 +6,11 @@
   --text: #26263e;
   --muted: #74768d;
   --line: #e8e8f3;
-  --primary: #069494; 
+  --primary: #069494;
+  --secondary: #fcc689; 
   --primary-hover: #057a7a; 
-  --primary-soft: #e0f5f5; 
+  --primary-soft: #e0f5f5;
+  --secondary-soft: #f89422;
   --primary-light: #4fc4c4; 
   --primary-glow: #0bb3b3; 
   --primary-line: #a8e2e2;
@@ -26,8 +28,10 @@
   --muted: #b0adc5;
   --line: #36364c;
   --primary: #2dd4d4;
+  --secondary: #f78d15;
   --primary-hover: #52e0e0;
   --primary-soft: #123939;
+  --secondary-soft: #f89422;
   --danger: #ff91aa;
   --success: #60d6b6;
   --shadow: 0 12px 32px rgb(0 0 0 / 12%);
@@ -1093,13 +1097,18 @@ tbody tr:last-child td {
 }
 
 .badge.soft {
-  color: var(--primary);
-  background: var(--primary-soft);
+  color: var(--line);
+  background: var(--secondary-soft);
 }
 
 .badge.good {
   color: var(--success);
   background: rgb(28 184 135 / 9%);
+}
+
+.badge.good2{
+  color: var(--success);
+  background: var(--background);
 }
 
 .gradeBox {
@@ -2695,4 +2704,55 @@ legend {
     animation: none !important;
     scroll-behavior: auto !important;
   }
+}
+
+.password-field label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 11px 76px 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface);
+  color: var(--text);
+  caret-color: var(--text);
+  font: inherit;
+}
+
+.password-wrapper input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.password-wrapper button {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--primary);
+  font: inherit;
+  cursor: pointer;
+}
+
+.password-wrapper button:hover {
+  color: var(--primary-hover);
+}
+
+.password-wrapper input:focus-visible,
+.password-wrapper button:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 4px;
 }
