@@ -11,7 +11,6 @@ const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
 const errorMessage = document.getElementById("login-error");
 
-
 function togglePasswordVisibility(input, button) {
     const showPassword = input.type === "password";
 
@@ -22,12 +21,6 @@ function togglePasswordVisibility(input, button) {
         showPassword ? "Hide password" : "Show password"
     );
 }
-const toggleButton = document.getElementById("toggle-password");
-
-toggleButton.addEventListener("click", () => {
-    togglePasswordVisibility(passwordInput, toggleButton);
-});
-
 
 function findAccount(username, password) {
     return (
@@ -290,6 +283,8 @@ function updateNotificationPanelState() {
     }
 }
 
+const toggleButton = document.getElementById("toggle-password");
+
 document.querySelectorAll('.notif-delete').forEach((button) => {
     button.addEventListener('click', () => {
         button.closest('.notification-row').remove();
@@ -305,3 +300,7 @@ if (clearAllButton) {
         updateNotificationPanelState();
     });
 }
+
+toggleButton.addEventListener("click", () => {
+    togglePasswordVisibility(passwordInput, toggleButton);
+});
