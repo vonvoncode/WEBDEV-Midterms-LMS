@@ -1,7 +1,7 @@
 <?php
 // db.php — include this at the top of every page that needs the database
 $host = 'localhost';
-$dbname = 'ascendone';
+$dbname = 'ettmnihs_db';
 $dbuser = 'root';
 $dbpass = '';           // XAMPP's default MySQL root password is empty
 
