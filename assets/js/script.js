@@ -1,15 +1,10 @@
-const ACCOUNTS = [
-    { username: "student", password: "student", redirect: "./student-dashboard.html" },
-    { username: "teacher", password: "teacher", redirect: "./teacher-dashboard.html" },
-];
-
-/* Who is signed in for this tab (set at login, cleared at logout) */
+/* Who is signed in for this tab. Login is now handled by PHP (index.php),
+   so nothing sets this at login anymore; getCurrentUser() falls back to
+   guessing the role from the file name. */
 const USER_KEY = 'ascendone-user';
 
-const loginForm = document.getElementById("login-form");
-const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
-const errorMessage = document.getElementById("login-error");
+const toggleButton = document.getElementById("toggle-password");
 
 function togglePasswordVisibility(input, button) {
     const showPassword = input.type === "password";
@@ -22,48 +17,14 @@ function togglePasswordVisibility(input, button) {
     );
 }
 
-function findAccount(username, password) {
-    return (
-        ACCOUNTS.find(
-            (account) => account.username === username && account.password === password
-        ) || null
-    );
-}
-
-if (loginForm) {
-    loginForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const username = usernameInput.value.trim();
-        const password = passwordInput.value.trim();
-
-        errorMessage.textContent = "";
-
-        if (!username || !password) {
-            errorMessage.textContent =
-                "Please enter both username and password.";
-            return;
-        }
-
-        const account = findAccount(username, password);
-
-        if (account) {
-            try {
-                sessionStorage.setItem(USER_KEY, account.username);
-            } catch (e) {
-                /* storage unavailable: pages fall back to guessing the role from the file name */
-            }
-            window.location.href = account.redirect;
-        } else {
-            errorMessage.textContent =
-                "Invalid username or password.";
-
-            passwordInput.value = "";
-            passwordInput.focus();
-        }
+/* Show / hide password (login page only) */
+if (toggleButton && passwordInput) {
+    toggleButton.addEventListener("click", () => {
+        togglePasswordVisibility(passwordInput, toggleButton);
     });
 }
 
+/* Log out: PHP destroys the session and redirects to the login page */
 const logoutbutton = document.getElementById('logout');
 
 if (logoutbutton) {
@@ -73,7 +34,7 @@ if (logoutbutton) {
         } catch (e) {
             /* ignore */
         }
-        window.location.href = './index.html';
+        window.location.href = 'logout.php';
     });
 }
 
@@ -163,10 +124,6 @@ function setDateToday(date = new Date()) {
     const options = { weekday: 'long', month: 'long', day: 'numeric' };
 
     const formattedDate = now.toLocaleDateString('en-US', options).toLowerCase();
-    // const newSpan = document.createElement('span');
-    // newSpan.id = datetoday;
-    // newSpan.textContent = formattedDate;
-    // def_date.replaceWith(newSpan);
     return formattedDate;
 }
 
@@ -201,7 +158,7 @@ function getCurrentUser() {
     } catch (e) {
         /* fall through to the file-name guess */
     }
-    // Page opened directly without logging in (e.g. while developing)
+    // Role guessed from the page name (teacher-*.php vs student-*.php)
     return window.location.pathname.includes('teacher-') ? 'teacher' : 'student';
 }
 
@@ -283,8 +240,6 @@ function updateNotificationPanelState() {
     }
 }
 
-const toggleButton = document.getElementById("toggle-password");
-
 document.querySelectorAll('.notif-delete').forEach((button) => {
     button.addEventListener('click', () => {
         button.closest('.notification-row').remove();
@@ -300,7 +255,3 @@ if (clearAllButton) {
         updateNotificationPanelState();
     });
 }
-
-toggleButton.addEventListener("click", () => {
-    togglePasswordVisibility(passwordInput, toggleButton);
-});
