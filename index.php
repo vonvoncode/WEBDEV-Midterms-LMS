@@ -1,0 +1,133 @@
+<?php
+session_start();
+require __DIR__ . '/db.php';
+
+// Already logged in? Go straight to the right dashboard.
+if (isset($_SESSION['user_id'])) {
+    header('Location: ' . ($_SESSION['role'] === 'teacher' ? 'teacher-dashboard.php' : 'student-dashboard.php'));
+    exit;
+}
+
+$error = '';
+$username = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = trim($_POST['username'] ?? '');
+    $password = $_POST['password'] ?? '';
+
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt->execute([$username]);
+    $user = $stmt->fetch();
+
+    if ($user && password_verify($password, $user['password'])) {
+        session_regenerate_id(true);
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['display_name'] = $user['display_name'];
+        $_SESSION['role'] = $user['role'];
+
+        header('Location: ' . ($user['role'] === 'teacher' ? 'teacher-dashboard.php' : 'student-dashboard.php'));
+        exit;
+    }
+    $error = 'Invalid username or password.';
+}
+?>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#7056ff" />
+    <title>Sign in · AscendOne</title>
+    <link rel="icon" href="assets/favicon-v2.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <main class="login-layout">
+      <section class="login-story" aria-label="Welcome to AscendOne">
+        <a class="brand" href="index.php" aria-label="AscendOne home"></a>
+        <div class="login-story-copy">
+          <span>LEARN. GROW. RISE.</span>
+          <h2>A little progress.<br />A higher tomorrow.</h2>
+          <p>
+            Your courses, your community, and your next big idea. All in one
+            place.
+          </p>
+          <div class="login-art" aria-hidden="true">
+            <div class="orbit"></div>
+            <div class="step one"><span>Learn</span></div>
+            <div class="step two"><span>Grow</span></div>
+            <div class="step three"><span>Ascend</span></div>
+          </div>
+        </div>
+        <p class="story-footer">AscendOne · reach the top as one</p>
+      </section>
+      <section class="login-main" aria-label="Account login">
+        <button
+          type="button"
+          class="icon-button login-theme-toggle"
+          id="theme-toggle"
+          aria-label="Toggle dark mode"
+        >
+          <i class="icon" data-lucide="moon"></i>
+        </button>
+        <div id="login-panel">
+          <div class="login-form-wrap">
+            <p class="eyebrow">Your next chapter starts here</p>
+            <h1>Welcome back.</h1>
+            <p class="muted">Sign in to your AscendOne learning space.</p>
+
+            <form id="login-form" method="POST" action="index.php">
+              <div class="field">
+                <label for="username">Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  placeholder="Enter your username"
+                  autocomplete="username"
+                  value="<?= htmlspecialchars($username) ?>"
+                  required
+                />
+              </div>
+
+              <div class="field">
+                <label for="password">Password</label>
+
+                <div class="password-wrapper">
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                  />
+
+                  <button
+                    type="button"
+                    id="toggle-password"
+                    aria-controls="password"
+                    aria-label="Show password"
+                  >
+                    Show
+                  </button>
+                </div>
+              </div>
+
+              <div id="login-error" class="form-error"><?= htmlspecialchars($error) ?></div>
+
+              <button class="button primary full btn-continue" type="submit">
+                Continue
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="assets/js/script.js"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
