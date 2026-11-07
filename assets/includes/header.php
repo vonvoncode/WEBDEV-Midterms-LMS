@@ -44,9 +44,9 @@ $user = currentUser();
         <a href="<?= $user['role'] ?>-announcements.php" class="<?= $activeNav === 'announcements' ? 'active' : '' ?>">
           <i class="icon" data-lucide="megaphone"></i> Announcements
         </a>
-        <a href="<?= $user['role'] ?>-notifications.php" class="<?= $activeNav === 'notifications' ? 'active' : '' ?>">
+        <!-- <a href="<?= $user['role'] ?>-notifications.php" class="<?= $activeNav === 'notifications' ? 'active' : '' ?>">
           <i class="icon" data-lucide="bell"></i> Notifications
-        </a>
+        </a> -->
       </nav>
 
       <div class="sidebar-bottom">
